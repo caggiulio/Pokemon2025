@@ -29,13 +29,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4DB8CD572A34BE66001FD9B8 /* SwiftUIArchitecture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIArchitecture.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DB8CD672A34BE69001FD9B8 /* SwiftUIArchitectureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIArchitectureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DB8CD712A34BE69001FD9B8 /* SwiftUIArchitectureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIArchitectureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DB8CD572A34BE66001FD9B8 /* Pokemon2025.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokemon2025.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DB8CD672A34BE69001FD9B8 /* Pokemon2025Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pokemon2025Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4DB8CD712A34BE69001FD9B8 /* Pokemon2025UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pokemon2025UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		736C253B2D85DA9200016EE3 /* SwiftUIArchitecture */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftUIArchitecture; sourceTree = "<group>"; };
+		736C253B2D85DA9200016EE3 /* Pokemon2025 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Pokemon2025; sourceTree = "<group>"; };
 		736C257B2D85DA9900016EE3 /* SwiftUIArchitectureTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftUIArchitectureTests; sourceTree = "<group>"; };
 		736C257F2D85DA9900016EE3 /* SwiftUIArchitectureUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftUIArchitectureUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -70,7 +70,7 @@
 		4DB8CD4E2A34BE66001FD9B8 = {
 			isa = PBXGroup;
 			children = (
-				736C253B2D85DA9200016EE3 /* SwiftUIArchitecture */,
+				736C253B2D85DA9200016EE3 /* Pokemon2025 */,
 				736C257B2D85DA9900016EE3 /* SwiftUIArchitectureTests */,
 				736C257F2D85DA9900016EE3 /* SwiftUIArchitectureUITests */,
 				4DB8CD582A34BE66001FD9B8 /* Products */,
@@ -80,9 +80,9 @@
 		4DB8CD582A34BE66001FD9B8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DB8CD572A34BE66001FD9B8 /* SwiftUIArchitecture.app */,
-				4DB8CD672A34BE69001FD9B8 /* SwiftUIArchitectureTests.xctest */,
-				4DB8CD712A34BE69001FD9B8 /* SwiftUIArchitectureUITests.xctest */,
+				4DB8CD572A34BE66001FD9B8 /* Pokemon2025.app */,
+				4DB8CD672A34BE69001FD9B8 /* Pokemon2025Tests.xctest */,
+				4DB8CD712A34BE69001FD9B8 /* Pokemon2025UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,9 +90,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4DB8CD562A34BE66001FD9B8 /* SwiftUIArchitecture */ = {
+		4DB8CD562A34BE66001FD9B8 /* Pokemon2025 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DB8CD7B2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitecture" */;
+			buildConfigurationList = 4DB8CD7B2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025" */;
 			buildPhases = (
 				4DB8CD532A34BE66001FD9B8 /* Sources */,
 				4DB8CD542A34BE66001FD9B8 /* Frameworks */,
@@ -103,20 +103,20 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				736C253B2D85DA9200016EE3 /* SwiftUIArchitecture */,
+				736C253B2D85DA9200016EE3 /* Pokemon2025 */,
 			);
-			name = SwiftUIArchitecture;
+			name = Pokemon2025;
 			packageProductDependencies = (
 				9BD21C932D82D2F700636B39 /* Factory */,
 				73001A2E2D85D552009241D5 /* RealHTTP */,
 			);
 			productName = SwiftUIArchitecture;
-			productReference = 4DB8CD572A34BE66001FD9B8 /* SwiftUIArchitecture.app */;
+			productReference = 4DB8CD572A34BE66001FD9B8 /* Pokemon2025.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4DB8CD662A34BE69001FD9B8 /* SwiftUIArchitectureTests */ = {
+		4DB8CD662A34BE69001FD9B8 /* Pokemon2025Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DB8CD7E2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitectureTests" */;
+			buildConfigurationList = 4DB8CD7E2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025Tests" */;
 			buildPhases = (
 				4DB8CD632A34BE69001FD9B8 /* Sources */,
 				4DB8CD642A34BE69001FD9B8 /* Frameworks */,
@@ -130,14 +130,14 @@
 			fileSystemSynchronizedGroups = (
 				736C257B2D85DA9900016EE3 /* SwiftUIArchitectureTests */,
 			);
-			name = SwiftUIArchitectureTests;
+			name = Pokemon2025Tests;
 			productName = SwiftUIArchitectureTests;
-			productReference = 4DB8CD672A34BE69001FD9B8 /* SwiftUIArchitectureTests.xctest */;
+			productReference = 4DB8CD672A34BE69001FD9B8 /* Pokemon2025Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4DB8CD702A34BE69001FD9B8 /* SwiftUIArchitectureUITests */ = {
+		4DB8CD702A34BE69001FD9B8 /* Pokemon2025UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DB8CD812A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitectureUITests" */;
+			buildConfigurationList = 4DB8CD812A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025UITests" */;
 			buildPhases = (
 				4DB8CD6D2A34BE69001FD9B8 /* Sources */,
 				4DB8CD6E2A34BE69001FD9B8 /* Frameworks */,
@@ -151,9 +151,9 @@
 			fileSystemSynchronizedGroups = (
 				736C257F2D85DA9900016EE3 /* SwiftUIArchitectureUITests */,
 			);
-			name = SwiftUIArchitectureUITests;
+			name = Pokemon2025UITests;
 			productName = SwiftUIArchitectureUITests;
-			productReference = 4DB8CD712A34BE69001FD9B8 /* SwiftUIArchitectureUITests.xctest */;
+			productReference = 4DB8CD712A34BE69001FD9B8 /* Pokemon2025UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -179,7 +179,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4DB8CD522A34BE66001FD9B8 /* Build configuration list for PBXProject "SwiftUIArchitecture" */;
+			buildConfigurationList = 4DB8CD522A34BE66001FD9B8 /* Build configuration list for PBXProject "Pokemon2025" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -196,9 +196,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4DB8CD562A34BE66001FD9B8 /* SwiftUIArchitecture */,
-				4DB8CD662A34BE69001FD9B8 /* SwiftUIArchitectureTests */,
-				4DB8CD702A34BE69001FD9B8 /* SwiftUIArchitectureUITests */,
+				4DB8CD562A34BE66001FD9B8 /* Pokemon2025 */,
+				4DB8CD662A34BE69001FD9B8 /* Pokemon2025Tests */,
+				4DB8CD702A34BE69001FD9B8 /* Pokemon2025UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -254,12 +254,12 @@
 /* Begin PBXTargetDependency section */
 		4DB8CD692A34BE69001FD9B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4DB8CD562A34BE66001FD9B8 /* SwiftUIArchitecture */;
+			target = 4DB8CD562A34BE66001FD9B8 /* Pokemon2025 */;
 			targetProxy = 4DB8CD682A34BE69001FD9B8 /* PBXContainerItemProxy */;
 		};
 		4DB8CD732A34BE69001FD9B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4DB8CD562A34BE66001FD9B8 /* SwiftUIArchitecture */;
+			target = 4DB8CD562A34BE66001FD9B8 /* Pokemon2025 */;
 			targetProxy = 4DB8CD722A34BE69001FD9B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -388,7 +388,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIArchitecture/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Pokemon2025/Preview Content\"";
 				DEVELOPMENT_TEAM = GF6WZHA9DX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -423,7 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUIArchitecture/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Pokemon2025/Preview Content\"";
 				DEVELOPMENT_TEAM = GF6WZHA9DX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -466,7 +466,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIArchitecture.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIArchitecture";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pokemon2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pokemon2025";
 			};
 			name = Debug;
 		};
@@ -485,7 +485,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftUIArchitecture.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SwiftUIArchitecture";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pokemon2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pokemon2025";
 			};
 			name = Release;
 		};
@@ -526,7 +526,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4DB8CD522A34BE66001FD9B8 /* Build configuration list for PBXProject "SwiftUIArchitecture" */ = {
+		4DB8CD522A34BE66001FD9B8 /* Build configuration list for PBXProject "Pokemon2025" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DB8CD792A34BE69001FD9B8 /* Debug */,
@@ -535,7 +535,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DB8CD7B2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitecture" */ = {
+		4DB8CD7B2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DB8CD7C2A34BE69001FD9B8 /* Debug */,
@@ -544,7 +544,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DB8CD7E2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitectureTests" */ = {
+		4DB8CD7E2A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DB8CD7F2A34BE69001FD9B8 /* Debug */,
@@ -553,7 +553,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DB8CD812A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "SwiftUIArchitectureUITests" */ = {
+		4DB8CD812A34BE69001FD9B8 /* Build configuration list for PBXNativeTarget "Pokemon2025UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DB8CD822A34BE69001FD9B8 /* Debug */,
