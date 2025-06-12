@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "BD8720F1-499C-401D-A47B-685E1D9E30AA"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40166BC6-74D0-4E4D-A314-F5C2E905E51A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftUIArchitecture/UseCase/PokemonUseCase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "execute()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "40166BC6-74D0-4E4D-A314-F5C2E905E51A - b0b6299968ca98c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for SwiftUIArchitecture.UseCase.GetPokemonByIdentifier.execute() async throws -&gt; ()"
+                  moduleName = "SwiftUIArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nunziogiuliocaggegi/Developer/SwiftUI-Architecture/SwiftUIArchitecture/SwiftUIArchitecture/UseCase/PokemonUseCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "524">
+               </Location>
+               <Location
+                  uuid = "40166BC6-74D0-4E4D-A314-F5C2E905E51A - ec7fba5216d7d3d4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for SwiftUIArchitecture.UseCase.GetPokemonByIdentifier.execute() async throws -&gt; ()"
+                  moduleName = "SwiftUIArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nunziogiuliocaggegi/Developer/SwiftUI-Architecture/SwiftUIArchitecture/SwiftUIArchitecture/UseCase/PokemonUseCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "40166BC6-74D0-4E4D-A314-F5C2E905E51A - 4ea81a1bc7e024c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for SwiftUIArchitecture.UseCase.GetPokemonByIdentifier.execute() async throws -&gt; ()"
+                  moduleName = "SwiftUIArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nunziogiuliocaggegi/Developer/SwiftUI-Architecture/SwiftUIArchitecture/SwiftUIArchitecture/UseCase/PokemonUseCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "40166BC6-74D0-4E4D-A314-F5C2E905E51A - 6ba5025b118c86c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for SwiftUIArchitecture.UseCase.GetPokemonByIdentifier.execute() async throws -&gt; ()"
+                  moduleName = "SwiftUIArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nunziogiuliocaggegi/Developer/SwiftUI-Architecture/SwiftUIArchitecture/SwiftUIArchitecture/UseCase/PokemonUseCase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
