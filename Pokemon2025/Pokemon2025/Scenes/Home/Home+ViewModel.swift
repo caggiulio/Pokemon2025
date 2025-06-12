@@ -15,42 +15,8 @@ extension UI.Funnel.Home {
     /// The local state of the view model.
     @Published private(set) var localState: LocalState<Empty, Never> = .idle
 
-    /// The selected Pokemon.
-    @Published private var pokemon: Pokemon?
-
-    // MARK: - Computed Properties
-
-    /// The name of the Pokemon.
-    var name: String {
-      pokemon?.name.capitalized ?? ""
-    }
-
-    /// The `URL` of the Pokemon image.
-    var imageURL: URL? {
-      URL(string: stringImage ?? "") ?? nil
-    }
-
-    /// The `String` `URL` image of the Pokemon.
-    private var stringImage: String? {
-      pokemon?.frontImage.stringURL ?? nil
-    }
-
     // MARK: - Update
 
-    override func update(state: AppState) {
-      pokemon = appState.state.pokemonDetail.selectedPokemon
-      localState = .success
-    }
-
-    // MARK: - Functions
-
-    /// The user taps on random button.
-    @MainActor
-    func didTapRandomButton() {
-      localState = .loading
-      Task {
-        try await UseCase.GetPokemonByIdentifier().execute()
-      }
-    }
+    override func update(state: AppState) {}
   }
 }

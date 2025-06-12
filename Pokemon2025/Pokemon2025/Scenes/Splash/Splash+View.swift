@@ -20,7 +20,7 @@ extension UI.Funnel.Splash {
     var body: some SwiftUI.View {
       MystiqueView(localState: viewModel.localState) { splashModel in
         ZStack {
-          Image(splashModel.imageName)
+          Image(splashModel.resource)
             .frame(width: splashModel.imageSize.width, height: splashModel.imageSize.height)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

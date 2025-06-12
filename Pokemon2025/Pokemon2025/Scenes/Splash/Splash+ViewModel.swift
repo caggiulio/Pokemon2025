@@ -21,13 +21,13 @@ extension UI.Funnel.Splash {
     func didAppear() {
       localState = .success(
         SplashModel(
-          imageName: "logo",
-          imageSize: CGSize(width: 300, height: 300)
+          resource: .logo,
+          imageSize: CGSize(width: .xxLarge, height: .xxLarge)
         )
       )
 
       Task {
-        try await UseCase.GetPokemonByIdentifier().execute()
+        try await UseCase.GetPokemonList().execute()
         self.coordinator.home()
       }
     }
