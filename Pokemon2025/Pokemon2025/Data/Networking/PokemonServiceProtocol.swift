@@ -10,5 +10,5 @@ import Foundation
 /// The protocol to defines the list of API calls to implements.
 protocol PokemonServiceProtocol {
   func getPokemon(id: String) async throws -> Pokemon
-  func getPokemonList(page: Int?) async throws -> PokemonList
+  func getPokemonList(next: String?) async throws -> PokemonList
 }

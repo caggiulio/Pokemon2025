@@ -22,8 +22,10 @@ extension Repository {
       stateContainer.state.pokemonDetail.selectedPokemon = pokemon
     }
 
-    func getPokemonList(page: Int?) async throws {
-      let pokemonList = try await networkingManager.pokemonService.getPokemonList(page: page)
+    func fetchPokemonList() async throws {
+      let pokemonList = try await networkingManager.pokemonService.getPokemonList(
+        next: stateContainer.state.pokemonList.pokemonList?.next
+      )
       stateContainer.state.pokemonList.pokemonList = pokemonList
     }
   }

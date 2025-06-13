@@ -30,14 +30,22 @@ struct PokemonService: PokemonServiceProtocol {
     return try await request.fetch(networking.client).decode(PokemonDataSource.self).normalizedForApp()
   }
 
-  func getPokemonList(page: Int?) async throws -> PokemonList {
-    let page = page ?? 1
-    let request = HTTPRequest {
-      $0.path = "/pokemon"
-      $0.method = .get
-      $0.add(queryItem: URLQueryItem(name: "page", value: page.httpFormatted()))
-    }
+  func getPokemonList(next: String?) async throws -> PokemonList {
+    let request: HTTPRequest
+    guard let next, let nextURL = URL(string: next) else {
+      request = HTTPRequest {
+        $0.path = "/pokemon"
+        $0.method = .get
+      }
 
-    return try await request.fetch(networking.client).decode(PokemonListDataSource.self).normalizedForApp()
+      return try await executeGetPokemonList(with: request)
+    }
+    request = try HTTPRequest(nextURL)
+
+    return try await executeGetPokemonList(with: request)
+  }
+
+  private func executeGetPokemonList(with request: HTTPRequest) async throws -> PokemonList {
+    try await request.fetch(networking.client).decode(PokemonListDataSource.self).normalizedForApp()
   }
 }

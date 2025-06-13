@@ -29,11 +29,11 @@ extension UseCase {
     }
   }
 
-  struct GetPokemonList {
+  struct FetchPokemonList {
     @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
 
-    func execute(page: Int? = nil) async throws {
-      try await pokemonRepository.getPokemonList(page: page)
+    func execute() async throws {
+      try await pokemonRepository.fetchPokemonList()
     }
   }
 }
