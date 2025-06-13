@@ -31,8 +31,8 @@ extension Container {
       .scope(.cached)
   }
 
-  var assembler: Factory<Assembler> {
-    self { Assembler() }
+  var mainAssembler: Factory<Assembler.Main> {
+    self { Assembler.Main() }
       .scope(.cached)
   }
 }

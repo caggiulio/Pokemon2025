@@ -29,7 +29,7 @@ struct LoaderModifier: ViewModifier {
         VStack {
           ProgressView()
           Text("Loading")
-            .padding(.top, 64)
+            .padding(.top, .large)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.5))

@@ -5,7 +5,7 @@
 import Foundation
 
 /// The enums that defines the possible destination links of the flow.
-enum CoordinatorLink {
+enum MainDestinationLink: Linkable {
   /// The splash case.
   case splash
 

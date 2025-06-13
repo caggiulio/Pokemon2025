@@ -17,13 +17,15 @@ struct SwiftUIArchitectureApp: App {
   @InjectedObject(\.coordinator) var coordinator: Coordinator
 
   /// The responsible of the assemble of the `View` used to assemble a view for navigation.
-  @Injected(\.assembler) var assembler: Assembler
+  @Injected(\.mainAssembler) var mainAssembler: Assembler.Main
 
   var body: some Scene {
     WindowGroup {
-      NavigationStack(path: $coordinator.path) {
-        assembler.navigateTo(destination: .splash)
-          .navigationDestination(for: CoordinatorLink.self) { assembler.navigateTo(destination: $0) }
+      NavigationStack(path: $coordinator.mainPath) {
+        mainAssembler.navigateTo(destination: .splash)
+          .navigationDestination(for: MainDestinationLink.self) {
+            mainAssembler.navigateTo(destination: $0)
+          }
       }
     }
   }

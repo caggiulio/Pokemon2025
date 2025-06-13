@@ -14,7 +14,7 @@ open class StaterViewModel: ObservableObject {
   // MARK: - Computed Properties
 
   /// The app state.
-  @Injected(\.stateContainer) var appState: StateContainer
+  @Injected(\.stateContainer) private var appState: StateContainer
 
   /// The cancellables set used for store `Combine` values.
   private var cancellables = Set<AnyCancellable>()
