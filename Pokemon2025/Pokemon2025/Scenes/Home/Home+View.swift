@@ -18,11 +18,45 @@ extension UI.Funnel.Home {
     // MARK: - View
 
     var body: some SwiftUI.View {
-      VStack {}
-        .loader(isShowing: viewModel.localState.isLoading)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .edgesIgnoringSafeArea(.all)
-        .navigationBarHidden(true)
+      ScrollView(.vertical) {
+        LazyVGrid(
+          columns: [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+          ]
+        ) {
+          ForEach(viewModel.pokemons) { pokemon in
+            pokemonCell(for: pokemon)
+          }
+        }
+      }
+      .padding(.horizontal, .xSmall)
+      .loader(isShowing: viewModel.localState.isLoading)
+      .navigationBarHidden(true)
+    }
+
+    private func pokemonCell(for pokemon: PokemonListItem) -> some SwiftUI.View {
+      ZStack {
+        VStack(spacing: .zero) {
+          AsyncImage(url: URL(string: pokemon.imageURL)) { image in
+            image
+              .resizable()
+              .frame(width: .xLarge, height: .xLarge)
+          } placeholder: {
+            Image(.pokeball)
+              .resizable()
+              .frame(width: .xLarge, height: .xLarge)
+          }
+
+          Text(pokemon.name)
+            .padding(.bottom, .small)
+        }
+      }
+      .frame(width: .xLarge + .large, height: .xLarge + .large, alignment: .center)
+      .background {
+        Color.red
+          .clipShape(RoundedRectangle(cornerRadius: .small))
+      }
     }
   }
 }

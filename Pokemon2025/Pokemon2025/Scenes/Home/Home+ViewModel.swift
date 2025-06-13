@@ -15,8 +15,14 @@ extension UI.Funnel.Home {
     /// The local state of the view model.
     @Published private(set) var localState: LocalState<Empty, Never> = .idle
 
+    @Published private(set) var pokemons: [PokemonListItem] = []
+
     // MARK: - Update
 
-    override func update(state: AppState) {}
+    override func update(state: AppState) {
+      super.update(state: state)
+
+      pokemons = state.pokemonList.pokemonList?.pokemonItems ?? []
+    }
   }
 }
