@@ -27,14 +27,32 @@ struct LoaderModifier: ViewModifier {
 
       if isShowing {
         VStack {
-          ProgressView()
-          Text("Loading")
-            .padding(.top, .large)
+          Image(.pokeball)
+            .resizable()
+            .frame(width: .xLarge, height: .xLarge)
+            .phaseAnimator(AnimationPhase.allCases) { view, phase in
+              view
+                .rotationEffect(
+                  phase == .start ? .degrees(.zero) : phase == .middle ? .degrees(40) : .degrees(30)
+                )
+            } animation: { phase in
+              switch phase {
+                case .start: .bouncy(duration: 0.5, extraBounce: 0.35)
+                case .middle: .spring(duration: 0.3, bounce: 0.25)
+                case .end: .smooth(duration: 0.5, extraBounce: 0.85)
+              }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.5))
       }
     }
+  }
+}
+
+extension LoaderModifier {
+  enum AnimationPhase: CaseIterable {
+    case start, middle, end
   }
 }
 
@@ -45,4 +63,9 @@ public extension View {
   func loader(isShowing: Binding<Bool>) -> some View {
     self.modifier(LoaderModifier(isShowing: isShowing))
   }
+}
+
+#Preview("Loader") {
+  ZStack {}
+    .loader(isShowing: .constant(true))
 }
