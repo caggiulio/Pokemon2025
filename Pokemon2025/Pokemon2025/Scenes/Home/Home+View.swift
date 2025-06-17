@@ -53,14 +53,17 @@ extension UI.Funnel.Home {
           AsyncImage(url: URL(string: pokemon.imageURL)) { image in
             image
               .resizable()
-              .frame(width: .xLarge, height: .xLarge)
+              .frame(width: .large + .medium, height: .large + .medium)
           } placeholder: {
             Image(.pokeball)
               .resizable()
-              .frame(width: .xLarge, height: .xLarge)
+              .frame(width: .large + .medium, height: .large + .medium)
           }
 
-          Text(pokemon.name)
+          Text(viewModel.name(for: pokemon))
+            .fontWeight(.bold)
+            .fontDesign(.rounded)
+            .foregroundStyle(.white)
             .padding(.bottom, .small)
         }
       }
@@ -71,10 +74,9 @@ extension UI.Funnel.Home {
           }
         }
       }
-      .frame(width: .xLarge + .large, height: .xLarge + .large, alignment: .center)
-      .glassEffect(in: RoundedRectangle(cornerRadius: .small))
+      .frame(width: .xLarge + .medium, height: .xLarge + .medium, alignment: .center)
+      .glassEffect(.regular.interactive(), in: RoundedRectangle(cornerRadius: .small))
       .padding(.small)
     }
   }
 }
-

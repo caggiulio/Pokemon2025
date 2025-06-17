@@ -17,7 +17,7 @@ struct AbilitiesDataSource: Decodable {
   let slot: Int
 
   // MARK: - CodingKeys
-  
+
   private enum CodingKeys: String, CodingKey {
     case ability
     case isHidden = "is_hidden"

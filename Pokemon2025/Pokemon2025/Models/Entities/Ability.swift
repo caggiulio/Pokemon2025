@@ -11,7 +11,7 @@ import Foundation
 struct Ability: PKMNModel {
   /// The display name of the ability.
   let name: String
-  
+
   // MARK: - Init
 
   /// Initializes an Ability from a data source.

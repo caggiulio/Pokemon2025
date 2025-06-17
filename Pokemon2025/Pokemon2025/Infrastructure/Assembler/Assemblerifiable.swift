@@ -20,7 +20,7 @@ import SwiftUI
 protocol Assemblerifiable {
   associatedtype DestinationView: View
   associatedtype DestinationLink: Linkable
-  
+
   /// Produces a destination view for navigation given a `DestinationLink`.
   ///
   /// - Parameter destination: The link that determines which view to assemble.

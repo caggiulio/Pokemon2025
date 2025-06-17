@@ -33,7 +33,7 @@ struct Pokemon: Identifiable, PKMNModel {
   let weight: Int
 
   // MARK: - Init
-  
+
   /// Initializes a new `Pokemon` from a given data source.
   /// - Parameter pokemonDataSource: The data source containing Pokémon details.
   init(pokemonDataSource: PokemonDataSource) {

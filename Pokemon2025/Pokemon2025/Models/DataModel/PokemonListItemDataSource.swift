@@ -21,7 +21,7 @@ struct PokemonListItemDataSource: Decodable {
     name = pokemon.name
     url = "https://pokeapi.co/api/v2/" + "pokemon/\(pokemon.id)/"
   }
-  
+
   /// The image URL for the Pokémon's official artwork.
   private var imageURL: String {
     let baseUrl =

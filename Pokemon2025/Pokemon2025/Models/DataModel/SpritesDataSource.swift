@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A data transfer object for sprites information of a Pokémon, specifically decoding the 
+/// A data transfer object for sprites information of a Pokémon, specifically decoding the
 /// 'other/official-artwork' section from the remote API response.
 struct SpritesDataSource: Decodable {
   /// The official artwork representations for this Pokémon.
