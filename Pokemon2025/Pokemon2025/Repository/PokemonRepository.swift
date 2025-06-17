@@ -26,7 +26,15 @@ extension Repository {
       let pokemonList = try await networkingManager.pokemonService.getPokemonList(
         next: stateContainer.state.pokemonList.pokemonList?.next
       )
-      stateContainer.state.pokemonList.pokemonList = pokemonList
+      var pokemonItems = stateContainer.state.pokemonList.pokemonList?.pokemonItems ?? []
+      pokemonItems += pokemonList.pokemonItems
+      let newPokemonList = PokemonList(
+        count: pokemonList.count,
+        next: pokemonList.next,
+        pokemonItems: pokemonItems
+      )
+
+      stateContainer.state.pokemonList.pokemonList = newPokemonList
     }
   }
 }

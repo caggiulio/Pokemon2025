@@ -13,7 +13,7 @@ extension UI.Funnel.Home {
     // MARK: - Stored Properties
 
     /// The local state of the view model.
-    @Published private(set) var localState: LocalState<Empty, Never> = .idle
+    @Published private(set) var localState: LocalState<Empty, Error> = .idle
 
     @Published private(set) var pokemons: [PokemonListItem] = []
 
@@ -23,6 +23,17 @@ extension UI.Funnel.Home {
       super.update(state: state)
 
       pokemons = state.pokemonList.pokemonList?.pokemonItems ?? []
+    }
+
+    @MainActor
+    func loadOthers() async throws {
+      localState = .loading
+      do {
+        try await UseCase.FetchPokemonList().execute()
+        localState = .success(Empty())
+      } catch {
+        localState = .failure(error)
+      }
     }
   }
 }
