@@ -16,7 +16,6 @@ extension Repository {
     /// The `AppState`.
     @Injected(\.stateContainer) private var stateContainer: StateContainer
 
-    /// Get the information of a Pokemon by his identifier.
     func getPokemon(identifier: String) async throws {
       let pokemon = try await networkingManager.pokemonService.getPokemon(id: identifier)
       stateContainer.state.pokemonDetail.selectedPokemon = pokemon

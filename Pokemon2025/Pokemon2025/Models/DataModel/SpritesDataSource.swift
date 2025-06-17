@@ -7,7 +7,10 @@
 
 import Foundation
 
+/// A data transfer object for sprites information of a Pokémon, specifically decoding the 
+/// 'other/official-artwork' section from the remote API response.
 struct SpritesDataSource: Decodable {
+  /// The official artwork representations for this Pokémon.
   let officialArtwork: OfficialArtworkDataSource
 
   private enum RootKeys: String, CodingKey {
@@ -18,6 +21,8 @@ struct SpritesDataSource: Decodable {
     case officialArtwork = "official-artwork"
   }
 
+  /// Initializes a new instance by decoding the 'other/official-artwork' object from the API response.
+  /// - Parameter decoder: The decoder to read data from.
   init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: RootKeys.self)
     let container = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .other)

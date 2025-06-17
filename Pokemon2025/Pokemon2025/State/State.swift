@@ -9,5 +9,6 @@ public struct AppState {
   /// The `PokemonDetail` state.
   var pokemonDetail = PokemonDetail()
 
+  /// The `PokemonListState` state.
   var pokemonList = PokemonListState()
 }

@@ -7,19 +7,32 @@
 
 import Foundation
 
+/// A data transfer object representing a Pokémon fetched from an external API, containing all core details as received from the network.
 struct PokemonDataSource: Decodable {
+  /// The abilities that this Pokémon can have.
   let abilities: [AbilitiesDataSource]
+  /// The base experience gained for defeating this Pokémon.
   let baseExperience: Int
+  /// Different forms the Pokémon can take.
   let forms: [FormsDataSource]
+  /// The height of the Pokémon in decimetres.
   let height: Int
+  /// The unique identifier for the Pokémon.
   let id: Int
+  /// The name of the Pokémon.
   let name: String
+  /// The order for sorting Pokémon; usually according to the National Pokédex.
   let order: Int
+  /// The species data associated with the Pokémon.
   let species: SpeciesDataSource
+  /// Visual representations/sprites of the Pokémon.
   let sprites: SpritesDataSource
+  /// The base stats of the Pokémon.
   let stats: [StatsDataSource]
+  /// The weight of the Pokémon in hectograms.
   let weight: Int
 
+  /// Coding keys to map JSON keys to struct properties.
   private enum CodingKeys: String, CodingKey {
     case abilities
     case baseExperience = "base_experience"
@@ -34,6 +47,8 @@ struct PokemonDataSource: Decodable {
     case weight
   }
 }
+
+// MARK: - Normalizable
 
 extension PokemonDataSource: Normalizable {
   func normalizedForApp() -> Pokemon {

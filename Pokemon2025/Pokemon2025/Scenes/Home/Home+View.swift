@@ -9,16 +9,14 @@ import Factory
 import SwiftUI
 
 extension UI.Funnel.Home {
+  /// The main view displaying a grid of Pokémon with asynchronous image loading,
+  /// handling loading states and navigation bar visibility.
   struct View: SwiftUI.View {
 
     // MARK: - Stored Properties
 
-    /// The `UI.Funnel.Home.ViewModel` of the view.
+    /// The `UI.Funnel.Home.ViewModel` managing the state and data for this view.
     @StateObject var viewModel = UI.Funnel.Home.ViewModel()
-
-    @State var search: String = ""
-    @Environment(\.isSearching) private var isSearching: Bool
-    @Environment(\.dismissSearch) private var dismissSearch
 
     // MARK: - View
 
@@ -46,6 +44,9 @@ extension UI.Funnel.Home {
       .navigationBarHidden(true)
     }
 
+    /// Creates a view representing a single Pokémon cell including its image and name.
+    /// - Parameter pokemon: The Pokémon item to display in the cell.
+    /// - Returns: A SwiftUI view representing the Pokémon cell.
     private func pokemonCell(for pokemon: PokemonListItem) -> some SwiftUI.View {
       ZStack {
         VStack(spacing: .zero) {
@@ -76,3 +77,4 @@ extension UI.Funnel.Home {
     }
   }
 }
+

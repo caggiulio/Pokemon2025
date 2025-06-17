@@ -7,7 +7,11 @@
 
 import Foundation
 
+/// A data transfer object representing a stat as received from the external API.
+/// Contains the stat name and the URL for more details about the stat.
 struct StatDataSource: Decodable {
-  let name: String
-  let url: String
+    /// The name of the stat (e.g., "speed", "attack", etc.).
+    let name: String
+    /// The URL providing detailed information about this stat.
+    let url: String
 }

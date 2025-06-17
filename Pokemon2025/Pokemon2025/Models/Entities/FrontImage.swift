@@ -7,9 +7,15 @@
 
 import Foundation
 
+/// A model representing the front-facing official artwork image of a Pokémon.
 struct FrontImage: PKMNModel {
+  /// The URL (as a string) of the Pokémon's front-facing official artwork.
   let stringURL: String
 
+  // MARK: - Init
+
+  /// Initializes a new `FrontImage` from a given `SpritesDataSource`.
+  /// - Parameter spritesDataSource: The data source containing the official artwork URLs.
   init(spritesDataSource: SpritesDataSource) {
     stringURL = spritesDataSource.officialArtwork.frontDefault
   }
