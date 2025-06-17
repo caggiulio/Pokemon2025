@@ -15,15 +15,6 @@ struct Stat: PKMNModel {
   let baseStat: Float
   /// The stat value represented as a percentage.
   let percentStat: Float
-
-  // MARK: - Init
-
-  /// Initializes a Stat from a StatsDataSource.
-  init(statDataSource: StatsDataSource) {
-    name = statDataSource.stat.name
-    baseStat = Float(statDataSource.baseStat)
-    percentStat = Float(baseStat) / 100
-  }
 }
 
 /// A wrapper for an array of Stat objects.

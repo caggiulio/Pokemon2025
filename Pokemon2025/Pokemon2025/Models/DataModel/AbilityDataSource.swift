@@ -14,3 +14,11 @@ struct AbilityDataSource: Decodable {
   /// The URL for more information about the ability.
   let url: String
 }
+
+// MARK: - Normalizable
+
+extension AbilityDataSource: Normalizable {
+  func normalizedForApp() -> Ability {
+    Ability(name: name)
+  }
+}

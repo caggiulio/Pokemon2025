@@ -52,6 +52,18 @@ struct PokemonDataSource: Decodable {
 
 extension PokemonDataSource: Normalizable {
   func normalizedForApp() -> Pokemon {
-    Pokemon(pokemonDataSource: self)
+    Pokemon(
+      abilities: abilities.map { $0.ability.normalizedForApp() },
+      baseExperience: baseExperience,
+      forms: forms.map { $0.normalizedForApp() },
+      height: height,
+      id: id,
+      name: name,
+      order: order,
+      species: species.normalizedForApp(),
+      frontImage: FrontImage(stringURL: sprites.officialArtwork.normalizedForApp().frontDefault),
+      stats: stats.map { $0.normalizedForApp() },
+      weight: weight
+    )
   }
 }

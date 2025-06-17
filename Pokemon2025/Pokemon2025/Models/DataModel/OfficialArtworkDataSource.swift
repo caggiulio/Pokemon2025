@@ -16,3 +16,11 @@ struct OfficialArtworkDataSource: Decodable {
     case frontDefault = "front_default"
   }
 }
+
+// MARK: - Normalizable
+
+extension OfficialArtworkDataSource: Normalizable {
+  func normalizedForApp() -> OfficialArtwork {
+    OfficialArtwork(frontDefault: frontDefault)
+  }
+}

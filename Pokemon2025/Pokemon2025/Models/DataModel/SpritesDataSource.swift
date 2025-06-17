@@ -29,3 +29,11 @@ struct SpritesDataSource: Decodable {
     officialArtwork = try container.decode(OfficialArtworkDataSource.self, forKey: .officialArtwork)
   }
 }
+
+// MARK: - Normalizable
+
+extension SpritesDataSource: Normalizable {
+  func normalizedForApp() -> Sprites {
+    Sprites(officialArtwork: officialArtwork.normalizedForApp())
+  }
+}

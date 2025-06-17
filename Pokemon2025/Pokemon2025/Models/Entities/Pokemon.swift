@@ -31,28 +31,4 @@ struct Pokemon: Identifiable, PKMNModel {
   let stats: [Stat]
   /// The weight of the Pokémon in hectograms.
   let weight: Int
-
-  // MARK: - Init
-
-  /// Initializes a new `Pokemon` from a given data source.
-  /// - Parameter pokemonDataSource: The data source containing Pokémon details.
-  init(pokemonDataSource: PokemonDataSource) {
-    abilities = pokemonDataSource.abilities.map { _abilities in
-      Ability(abilityDataSource: _abilities.ability)
-    }
-    baseExperience = pokemonDataSource.baseExperience
-    forms = pokemonDataSource.forms.map { formDataSource in
-      Forms(formsDataSource: formDataSource)
-    }
-    height = pokemonDataSource.height
-    id = pokemonDataSource.id
-    name = pokemonDataSource.name
-    order = pokemonDataSource.order
-    species = Species(speciesDataSource: pokemonDataSource.species)
-    frontImage = FrontImage(spritesDataSource: pokemonDataSource.sprites)
-    stats = pokemonDataSource.stats.map { statDataSource in
-      Stat(statDataSource: statDataSource)
-    }
-    weight = pokemonDataSource.weight
-  }
 }

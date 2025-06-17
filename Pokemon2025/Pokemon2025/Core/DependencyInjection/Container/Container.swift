@@ -26,9 +26,12 @@ extension Container {
       .scope(.cached)
   }
 
-  var networkManager: Factory<NetworkManager> {
-    self { NetworkManager(pokemonService: PokemonService()) }
+  var pokemonService: Factory<PokemonServiceProtocol> {
+    self { PokemonService() }
       .scope(.cached)
+      .onPreview {
+        PokemonServiceMock()
+      }
   }
 
   var mainAssembler: Factory<Assembler.Main> {

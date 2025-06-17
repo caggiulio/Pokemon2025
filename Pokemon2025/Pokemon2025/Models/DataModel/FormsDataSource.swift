@@ -14,3 +14,11 @@ struct FormsDataSource: Decodable {
   /// The URL endpoint associated with the Pokémon form.
   let url: String
 }
+
+// MARK: - Normalizable
+
+extension FormsDataSource: Normalizable {
+  func normalizedForApp() -> Forms {
+    Forms(name: name)
+  }
+}

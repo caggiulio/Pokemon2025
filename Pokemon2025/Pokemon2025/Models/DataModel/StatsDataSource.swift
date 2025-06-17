@@ -22,3 +22,11 @@ struct StatsDataSource: Decodable {
     case stat
   }
 }
+
+// MARK: - Normalizable
+
+extension StatsDataSource: Normalizable {
+  func normalizedForApp() -> Stat {
+    Stat(name: stat.name, baseStat: Float(baseStat), percentStat: Float(baseStat) / 100)
+  }
+}

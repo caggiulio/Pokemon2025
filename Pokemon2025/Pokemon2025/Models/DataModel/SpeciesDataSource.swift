@@ -14,3 +14,11 @@ struct SpeciesDataSource: Decodable {
   /// The detailed URL for this species entry in the API.
   let url: String
 }
+
+// MARK: - Normalizable
+
+extension SpeciesDataSource: Normalizable {
+  func normalizedForApp() -> Species {
+    Species(name: name)
+  }
+}
