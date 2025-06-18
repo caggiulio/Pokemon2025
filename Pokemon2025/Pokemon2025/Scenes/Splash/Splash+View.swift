@@ -21,6 +21,9 @@ extension UI.Funnel.Splash {
 
     /// The app assembler.
     @Injected(\.mainAssembler) var mainAssembler: Assembler.Main
+    
+    /// The home assembler.
+    @Injected(\.homeAssembler) var homeAssembler: Assembler.Home
 
     // MARK: - View
 
@@ -37,6 +40,9 @@ extension UI.Funnel.Splash {
       .fullScreenCover(isPresented: $coordinator.isHomePresented) {
         NavigationStack(path: $coordinator.homePath) {
           mainAssembler.view(for: .home)
+            .navigationDestination(for: HomeDestinationLink.self) { destination in
+              homeAssembler.view(for: destination)
+            }
         }
       }
     }

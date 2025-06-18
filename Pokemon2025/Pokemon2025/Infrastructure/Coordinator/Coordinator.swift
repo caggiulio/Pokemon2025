@@ -8,7 +8,7 @@
 import SwiftUI
 
 class Coordinator: ObservableObject {
-  /// The `NavigationPath` object.
+  /// The `NavigationPath` object from the home root.
   @Published var homePath = NavigationPath()
 
   /// When the home is presented or not.
@@ -24,8 +24,13 @@ class Coordinator: ObservableObject {
     homePath.removeLast()
   }
 
-  /// Presents the `UI.Funnel.Home.View`
+  /// Presents the `UI.Funnel.Home.View`.
   func home() {
     isHomePresented.toggle()
+  }
+  
+  /// Push the details view.
+  func details() {
+    homePath.append(HomeDestinationLink.details)
   }
 }
