@@ -12,7 +12,7 @@ extension Assembler {
     func view(for destination: HomeDestinationLink) -> some View {
       switch destination {
       case .details:
-        EmptyView()
+        UI.Funnel.Details.View()
       }
     }
   }

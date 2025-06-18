@@ -27,11 +27,6 @@ open class StaterViewModel: ObservableObject {
       .receive(on: DispatchQueue.main)
       .sink { [weak self] state in
         self?.update(state: state)
-
-        // TODO: Implements the changes
-
-        /// In order to send a signal everytime the state changes.
-        //self?.objectWillChange.send()
       }
       .store(in: &cancellables)
   }

@@ -15,4 +15,6 @@ extension UI.Funnel {
   enum Splash {}
 
   enum Home {}
+
+  enum Details {}
 }

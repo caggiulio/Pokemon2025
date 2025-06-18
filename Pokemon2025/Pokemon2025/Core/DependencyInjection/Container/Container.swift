@@ -38,7 +38,7 @@ extension Container {
     self { Assembler.Main() }
       .scope(.cached)
   }
-  
+
   var homeAssembler: Factory<Assembler.Home> {
     self { Assembler.Home() }
       .scope(.cached)

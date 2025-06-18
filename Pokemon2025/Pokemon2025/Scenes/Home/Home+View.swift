@@ -79,6 +79,11 @@ extension UI.Funnel.Home {
       .frame(width: .xLarge + .medium, height: .xLarge + .medium, alignment: .center)
       .glassEffect(.regular.interactive(), in: RoundedRectangle(cornerRadius: .small))
       .padding(.small)
+      .onTapGesture {
+        Task {
+          try await viewModel.fetchPokemonDetail(for: pokemon)
+        }
+      }
     }
   }
 }

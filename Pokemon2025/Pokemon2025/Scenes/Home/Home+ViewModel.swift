@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import Foundation
 
 /// Extension containing the ViewModel for the Home UI funnel,
@@ -36,6 +37,11 @@ extension UI.Funnel.Home {
     /// Holds the current list of Pokémon items to be displayed in the UI.
     @Published private(set) var pokemons: [PokemonListItem] = []
 
+    /// A reference to the app's navigation coordinator, injected using Factory's property wrapper.
+    /// The coordinator is responsible for managing navigation and flow control within the Home UI,
+    /// enabling the ViewModel to trigger navigation actions without tightly coupling to the navigation logic.
+    @Injected(\.coordinator) private var coordinator: Coordinator
+
     /// Holds the full unfiltered list of Pokémon items.
     private var allPokemons: [PokemonListItem] = []
 
@@ -45,7 +51,7 @@ extension UI.Funnel.Home {
     // MARK: - Init
 
     /// Initializes a new instance of the Home ViewModel.
-    /// 
+    ///
     /// Sets up observation on the `searchString` property using Combine to automatically
     /// apply filters to the Pokémon list whenever the search string changes. Also ensures
     /// proper memory management by storing the subscription in the `cancellables` set.
@@ -87,7 +93,7 @@ extension UI.Funnel.Home {
       localState = .loading
       do {
         try await UseCase.FetchPokemonList().execute()
-        localState = .success(Empty())
+        localState = .success
       } catch {
         localState = .failure(error)
       }
@@ -99,6 +105,26 @@ extension UI.Funnel.Home {
     /// - Returns: The capitalized name of the Pokémon as a `String`.
     func name(for pokemon: PokemonListItem) -> String {
       return pokemon.name.capitalized
+    }
+
+    /// Asynchronously fetches the detailed information for a given Pokémon and updates the local state accordingly.
+    ///
+    /// This function sets the `localState` to `.loading` while the data is being fetched, then updates it to `.success`
+    /// upon successful completion, or `.failure` if an error occurs. After successfully fetching the Pokémon detail,
+    /// this function also triggers the navigation to the details screen via the coordinator.
+    ///
+    /// - Parameter pokemon: The `PokemonListItem` for which to fetch detailed information.
+    /// - Throws: Rethrows any error encountered during the data fetch operation.
+    @MainActor
+    func fetchPokemonDetail(for pokemon: PokemonListItem) async throws {
+      localState = .loading
+      do {
+        try await UseCase.GetPokemonByIdentifier().execute(identifier: pokemon.id)
+        localState = .success
+        coordinator.details()
+      } catch {
+        localState = .failure(error)
+      }
     }
 
     /// Filters the list of Pokémon based on the current search state and search string.

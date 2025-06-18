@@ -21,7 +21,7 @@ extension UI.Funnel.Splash {
 
     /// The app assembler.
     @Injected(\.mainAssembler) var mainAssembler: Assembler.Main
-    
+
     /// The home assembler.
     @Injected(\.homeAssembler) var homeAssembler: Assembler.Home
 

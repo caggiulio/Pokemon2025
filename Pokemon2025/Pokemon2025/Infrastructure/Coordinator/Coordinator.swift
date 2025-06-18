@@ -28,7 +28,7 @@ class Coordinator: ObservableObject {
   func home() {
     isHomePresented.toggle()
   }
-  
+
   /// Push the details view.
   func details() {
     homePath.append(HomeDestinationLink.details)
