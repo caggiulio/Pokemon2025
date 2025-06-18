@@ -5,6 +5,7 @@
 //  Created by Nunzio Giulio Caggegi on 11/06/23.
 //
 
+import Combine
 import Foundation
 
 /// Extension containing the ViewModel for the Home UI funnel,
@@ -16,12 +17,43 @@ extension UI.Funnel.Home {
 
     // MARK: - Stored Properties
 
+    /// A string representing the user's current input in the search field.
+    /// Used to filter and search for Pokémon within the Home view.
+    @Published var searchString: String = ""
+
+    /// A Boolean value indicating whether the user is actively performing a search.
+    /// Used to control the display of search-related UI elements and logic in the Home view.
+    @Published var isSearching: Bool = false
+
+    /// The navigation bar title displayed at the top of the Home screen.
+    /// Used to indicate the primary content or context of the current view.
+    var navigationTitle = "Pokémon"
+
     /// Represents the current local state of the ViewModel,
     /// including loading, success, and failure states used to update the UI.
     @Published private(set) var localState: LocalState<Empty, Error> = .idle
 
     /// Holds the current list of Pokémon items to be displayed in the UI.
     @Published private(set) var pokemons: [PokemonListItem] = []
+
+    /// Holds the full unfiltered list of Pokémon items.
+    private var allPokemons: [PokemonListItem] = []
+
+    /// A set used to store Combine's `AnyCancellable` instances.
+    private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - Init
+
+    override init() {
+      super.init()
+
+      $searchString
+        .sink { [weak self] _ in
+          guard let self else { return }
+          filters()
+        }
+        .store(in: &cancellables)
+    }
 
     // MARK: - Update
 
@@ -31,7 +63,9 @@ extension UI.Funnel.Home {
     override func update(state: AppState) {
       super.update(state: state)
 
-      pokemons = state.pokemonList.pokemonList?.pokemonItems ?? []
+      let items = state.pokemonList.pokemonList?.pokemonItems ?? []
+      allPokemons = items
+      pokemons = items
     }
 
     // MARK: - Functions
@@ -42,6 +76,9 @@ extension UI.Funnel.Home {
     /// Errors thrown during the fetch are handled and reflected in the local state.
     @MainActor
     func loadOthers() async throws {
+      guard !isSearching else {
+        return
+      }
       localState = .loading
       do {
         try await UseCase.FetchPokemonList().execute()
@@ -57,6 +94,16 @@ extension UI.Funnel.Home {
     /// - Returns: The capitalized name of the Pokémon as a `String`.
     func name(for pokemon: PokemonListItem) -> String {
       return pokemon.name.capitalized
+    }
+
+    private func filters() {
+      if isSearching && !searchString.isEmpty {
+        pokemons = allPokemons.filter {
+          $0.name.lowercased().localizedCaseInsensitiveContains(searchString)
+        }
+      } else {
+        pokemons = allPokemons
+      }
     }
   }
 }

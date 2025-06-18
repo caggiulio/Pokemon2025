@@ -21,9 +21,7 @@ struct SwiftUIArchitectureApp: App {
 
   var body: some Scene {
     WindowGroup {
-      NavigationStack {
-        mainAssembler.view(for: .splash)
-      }
+      mainAssembler.view(for: .splash)
     }
   }
 }

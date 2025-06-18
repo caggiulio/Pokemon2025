@@ -16,7 +16,7 @@ extension UI.Funnel.Home {
     // MARK: - Stored Properties
 
     /// The `UI.Funnel.Home.ViewModel` managing the state and data for this view.
-    @StateObject var viewModel = UI.Funnel.Home.ViewModel()
+    @StateObject private var viewModel = UI.Funnel.Home.ViewModel()
 
     // MARK: - View
 
@@ -39,9 +39,11 @@ extension UI.Funnel.Home {
         }
         .padding(.horizontal, .xSmall)
 
+        UI.Funnel.Home.View.Search(isSearchingBinding: $viewModel.isSearching)
+          .searchable(text: $viewModel.searchString)
       }
+      .navigationTitle(viewModel.navigationTitle)
       .loader(isShowing: viewModel.localState.isLoading)
-      .navigationBarHidden(true)
     }
 
     /// Creates a view representing a single Pokémon cell including its image and name.
