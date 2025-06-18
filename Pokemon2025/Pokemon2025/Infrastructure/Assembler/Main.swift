@@ -9,10 +9,10 @@ import SwiftUI
 
 extension Assembler {
   struct Main: Assemblerifiable {
-    /// Solve the navigation basing on `CoordinatorLink`.
-    /// - Parameter destination: The `CoordinatorLink`.
+    /// Solve the navigation basing on `MainDestinationLink`.
+    /// - Parameter destination: The `MainDestinationLink`.
     /// - Returns: The related `SwiftUI.View`.
-    func navigateTo(destination: MainDestinationLink) -> some View {
+    func view(for destination: MainDestinationLink) -> some View {
       switch destination {
       case .splash:
         UI.Funnel.Splash.View()

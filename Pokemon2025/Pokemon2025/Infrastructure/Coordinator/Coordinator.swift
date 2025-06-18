@@ -9,20 +9,23 @@ import SwiftUI
 
 class Coordinator: ObservableObject {
   /// The `NavigationPath` object.
-  @Published var mainPath = NavigationPath()
+  @Published var homePath = NavigationPath()
+
+  /// When the home is presented or not.
+  @Published var isHomePresented: Bool = false
 
   /// Pop to root view.
   func popToRoot() {
-    mainPath.removeLast(mainPath.count)
+    homePath.removeLast(homePath.count)
   }
 
   /// Pop to back view.
   func popView() {
-    mainPath.removeLast()
+    homePath.removeLast()
   }
 
-  /// Push the `UI.Funnel.Home.View`
+  /// Presents the `UI.Funnel.Home.View`
   func home() {
-    mainPath.append(MainDestinationLink.home)
+    isHomePresented.toggle()
   }
 }

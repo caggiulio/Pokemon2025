@@ -26,5 +26,5 @@ protocol Assemblerifiable {
   /// - Parameter destination: The link that determines which view to assemble.
   /// - Returns: A SwiftUI view appropriate for the provided destination.
   @ViewBuilder
-  func navigateTo(destination: DestinationLink) -> DestinationView
+  func view(for destination: DestinationLink) -> DestinationView
 }

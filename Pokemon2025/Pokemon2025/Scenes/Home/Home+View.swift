@@ -82,10 +82,12 @@ extension UI.Funnel.Home {
 }
 
 #Preview("Home") {
-  UI.Funnel.Home.View()
-    .onAppear {
-      Task {
-        try await UseCase.FetchPokemonList().execute()
+  NavigationStack {
+    UI.Funnel.Home.View()
+      .onAppear {
+        Task {
+          try await UseCase.FetchPokemonList().execute()
+        }
       }
-    }
+  }
 }

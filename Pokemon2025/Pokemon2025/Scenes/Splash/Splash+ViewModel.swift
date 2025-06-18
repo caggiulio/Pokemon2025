@@ -28,7 +28,7 @@ extension UI.Funnel.Splash {
 
       Task {
         try await UseCase.FetchPokemonList().execute()
-        self.coordinator.home()
+        coordinator.home()
       }
     }
   }

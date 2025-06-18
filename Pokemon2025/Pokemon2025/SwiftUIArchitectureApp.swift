@@ -21,11 +21,8 @@ struct SwiftUIArchitectureApp: App {
 
   var body: some Scene {
     WindowGroup {
-      NavigationStack(path: $coordinator.mainPath) {
-        mainAssembler.navigateTo(destination: .splash)
-          .navigationDestination(for: MainDestinationLink.self) {
-            mainAssembler.navigateTo(destination: $0)
-          }
+      NavigationStack {
+        mainAssembler.view(for: .splash)
       }
     }
   }
