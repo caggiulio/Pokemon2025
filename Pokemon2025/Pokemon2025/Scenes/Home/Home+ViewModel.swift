@@ -44,6 +44,11 @@ extension UI.Funnel.Home {
 
     // MARK: - Init
 
+    /// Initializes a new instance of the Home ViewModel.
+    /// 
+    /// Sets up observation on the `searchString` property using Combine to automatically
+    /// apply filters to the Pokémon list whenever the search string changes. Also ensures
+    /// proper memory management by storing the subscription in the `cancellables` set.
     override init() {
       super.init()
 
@@ -96,6 +101,16 @@ extension UI.Funnel.Home {
       return pokemon.name.capitalized
     }
 
+    /// Filters the list of Pokémon based on the current search state and search string.
+    ///
+    /// If a search is active (`isSearching` is `true`) and the search string is not empty,
+    /// this method updates the displayed Pokémon list (`pokemons`) to only include those
+    /// whose names contain the search string, using a localized case-insensitive comparison.
+    /// If there is no active search or the search string is empty, the full list of Pokémon
+    /// (`allPokemons`) is shown.
+    ///
+    /// This method is typically called automatically when the search string changes,
+    /// ensuring the UI always reflects the user's current search query.
     private func filters() {
       if isSearching && !searchString.isEmpty {
         pokemons = allPokemons.filter {
