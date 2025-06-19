@@ -11,8 +11,8 @@ extension Assembler {
   struct Home: Assemblerifiable {
     func view(for destination: HomeDestinationLink) -> some View {
       switch destination {
-      case .details:
-        UI.Funnel.Details.View()
+      case .details(let transitionIdentifier, let animation):
+        UI.Funnel.Details.View(transitionIdentifier: transitionIdentifier, animation: animation)
       }
     }
   }

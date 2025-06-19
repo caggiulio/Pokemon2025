@@ -8,6 +8,7 @@
 import Combine
 import Factory
 import Foundation
+import SwiftUI
 
 /// Extension containing the ViewModel for the Home UI funnel,
 /// managing state and data interactions for the Home view.
@@ -116,15 +117,28 @@ extension UI.Funnel.Home {
     /// - Parameter pokemon: The `PokemonListItem` for which to fetch detailed information.
     /// - Throws: Rethrows any error encountered during the data fetch operation.
     @MainActor
-    func fetchPokemonDetail(for pokemon: PokemonListItem) async throws {
+    func fetchPokemonDetail(for pokemon: PokemonListItem, animation: Namespace.ID) async throws {
       localState = .loading
       do {
         try await UseCase.GetPokemonByIdentifier().execute(identifier: pokemon.id)
         localState = .success
-        coordinator.details()
+        coordinator.details(transitionIdentifier: matchedTransitionIdentifier(for: pokemon), animation: animation)
       } catch {
         localState = .failure(error)
       }
+    }
+
+    /// Returns a unique transition identifier for the given Pokémon item,
+    /// used to match transitions in navigation or animation contexts.
+    ///
+    /// The identifier is constructed by combining the prefix "pokemon#" with
+    /// the Pokémon's unique identifier, ensuring that each Pokémon can be
+    /// distinctly referenced during view transitions.
+    ///
+    /// - Parameter pokemon: The `PokemonListItem` for which to generate the transition identifier.
+    /// - Returns: A hashable value representing the unique transition identifier for the Pokémon.
+    func matchedTransitionIdentifier(for pokemon: PokemonListItem) -> String {
+      "pokemon#\(pokemon.id)"
     }
 
     /// Filters the list of Pokémon based on the current search state and search string.

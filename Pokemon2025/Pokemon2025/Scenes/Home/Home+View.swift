@@ -18,6 +18,15 @@ extension UI.Funnel.Home {
     /// The `UI.Funnel.Home.ViewModel` managing the state and data for this view.
     @StateObject private var viewModel = UI.Funnel.Home.ViewModel()
 
+    /// A namespace for matched geometry effects, enabling smooth transitions and animations
+    /// between views that share the same matched geometry effect identifier.
+    ///
+    /// - Note: `@Namespace` provides a unique namespace value for the view hierarchy, which
+    ///         is typically used with `.matchedGeometryEffect(id:in:)` to create coordinated
+    ///         animations between views. Although it is declared here for potential animation
+    ///         use, it is currently unused in this view implementation.
+    @Namespace private var animation
+
     // MARK: - View
 
     var body: some SwiftUI.View {
@@ -32,8 +41,8 @@ extension UI.Funnel.Home {
               GridItem(.flexible()),
             ]
           ) {
-            ForEach(viewModel.pokemons) { pokemon in
-              pokemonCell(for: pokemon)
+            ForEach(viewModel.pokemons) {
+              pokemonCell(for: $0)
             }
           }
         }
@@ -69,6 +78,10 @@ extension UI.Funnel.Home {
             .padding(.bottom, .small)
         }
       }
+      .frame(width: .xLarge + .small, height: .xLarge + .small, alignment: .center)
+      .padding(.small)
+      .glassEffect(.regular.interactive(), in: RoundedRectangle(cornerRadius: .small))
+      .matchedTransitionSource(id: viewModel.matchedTransitionIdentifier(for: pokemon), in: animation)
       .onAppear {
         if pokemon == viewModel.pokemons.last {
           Task {
@@ -76,12 +89,9 @@ extension UI.Funnel.Home {
           }
         }
       }
-      .frame(width: .xLarge + .medium, height: .xLarge + .medium, alignment: .center)
-      .glassEffect(.regular.interactive(), in: RoundedRectangle(cornerRadius: .small))
-      .padding(.small)
       .onTapGesture {
         Task {
-          try await viewModel.fetchPokemonDetail(for: pokemon)
+          try await viewModel.fetchPokemonDetail(for: pokemon, animation: animation)
         }
       }
     }

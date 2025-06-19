@@ -30,7 +30,7 @@ class Coordinator: ObservableObject {
   }
 
   /// Push the details view.
-  func details() {
-    homePath.append(HomeDestinationLink.details)
+  func details(transitionIdentifier: String, animation: Namespace.ID) {
+    homePath.append(HomeDestinationLink.details(transitionIdentifier: transitionIdentifier, animation: animation))
   }
 }
