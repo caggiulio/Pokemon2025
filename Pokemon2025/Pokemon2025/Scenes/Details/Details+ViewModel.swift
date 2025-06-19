@@ -44,8 +44,5 @@ extension UI.Funnel.Details {
 
       selectedPokemon = state.pokemonDetail.selectedPokemon
     }
-
-    // MARK: - Functions
-
   }
 }

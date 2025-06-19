@@ -21,7 +21,7 @@ protocol PokemonServiceProtocol {
   /// - Throws: An error if the fetch fails.
   /// - Note: This method is asynchronous.
   func getPokemon(id: String) async throws -> Pokemon
-  
+
   /// Retrieves a paginated list of Pokémon from the API.
   ///
   /// - Parameter next: An optional pagination URL for fetching the next page. Pass `nil` to fetch the first page.

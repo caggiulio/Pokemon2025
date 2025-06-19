@@ -20,7 +20,6 @@ struct PokemonService: PokemonServiceProtocol {
 
   // MARK: - Functions
 
-  /// Get and transform the `PokemonDataSource` fetched from the network in the `Pokemon` return object.
   func getPokemon(id: String) async throws -> Pokemon {
     let request = HTTPRequest {
       $0.path = "/pokemon/\(id)"

@@ -16,13 +16,13 @@ extension UI.Funnel.Details {
 
     /// The identifier used for navigation transitions, typically unique to each item.
     var transitionIdentifier: String
-    
+
     /// The namespace for animation transitions.
     var animation: Namespace.ID
 
     /// The `UI.Funnel.Details.ViewModel` managing the state and data for this view, including image URL and displayed name.
     @StateObject private var viewModel = UI.Funnel.Details.ViewModel()
-    
+
     // MARK: - Body
 
     var body: some SwiftUI.View {
@@ -46,16 +46,16 @@ extension UI.Funnel.Details {
       }
       .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
     }
-    
+
     // MARK: - Subviews
-    
+
     /// Returns an image view for the detailed item.
     /// - Parameter isBackground: If true, the image is displayed in the background (larger, blurred). If false, the image is foregrounded (normal size, sharp).
     /// - Returns: A SwiftUI view displaying the appropriate image (remote image or placeholder).
     func imageView(isBackground: Bool) -> some SwiftUI.View {
       let size = isBackground ? (.xxLarge * 2) : .xxLarge
       let blur = isBackground ? 15.0 : .zero
-      
+
       return AsyncImage(url: URL(string: viewModel.imageURL)) { image in
         image
           .resizable()
