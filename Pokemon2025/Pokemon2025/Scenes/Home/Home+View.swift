@@ -23,8 +23,7 @@ extension UI.Funnel.Home {
     ///
     /// - Note: `@Namespace` provides a unique namespace value for the view hierarchy, which
     ///         is typically used with `.matchedGeometryEffect(id:in:)` to create coordinated
-    ///         animations between views. Although it is declared here for potential animation
-    ///         use, it is currently unused in this view implementation.
+    ///         animations between views.
     @Namespace private var animation
 
     // MARK: - View
