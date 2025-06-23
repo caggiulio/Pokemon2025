@@ -10,5 +10,8 @@ import Foundation
 /// The state in which the Pokemon detail information will stored.
 struct PokemonDetail {
   /// The selected Pokemon.
-  var selectedPokemon: Pokemon?
+  var selectedPokemon: Model.Entity.Pokemon?
+
+  /// The pokedex information provided by assistant.
+  var pokedexInformation: PokemonInformation?
 }

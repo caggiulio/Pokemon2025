@@ -20,7 +20,7 @@ protocol PokemonServiceProtocol {
   /// - Returns: A `Pokemon` object containing detailed information.
   /// - Throws: An error if the fetch fails.
   /// - Note: This method is asynchronous.
-  func getPokemon(id: String) async throws -> Pokemon
+  func getPokemon(id: String) async throws -> Model.Entity.Pokemon
 
   /// Retrieves a paginated list of Pokémon from the API.
   ///

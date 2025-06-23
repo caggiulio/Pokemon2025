@@ -16,6 +16,9 @@ extension Repository {
     /// The `AppState`.
     @Injected(\.stateContainer) private var stateContainer: StateContainer
 
+    /// The AI Assistant servicethat returns the Pokedex information.
+    @Injected(\.pokedexAssistanService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
+
     func getPokemon(identifier: String) async throws {
       let pokemon = try await pokemonService.getPokemon(id: identifier)
       stateContainer.state.pokemonDetail.selectedPokemon = pokemon
@@ -41,6 +44,15 @@ extension Repository {
       )
 
       stateContainer.state.pokemonList.pokemonList = newPokemonList
+    }
+
+    func getPokedexInformation(for pokemon: Model.Entity.Pokemon) async throws {
+      let pokedexInformation = try await pokedexAssistanService.getPokemonInformation(from: pokemon)
+      stateContainer.state.pokemonDetail.pokedexInformation = pokedexInformation
+    }
+
+    func clearPokedexInformation() {
+      stateContainer.state.pokemonDetail.pokedexInformation = nil
     }
   }
 }

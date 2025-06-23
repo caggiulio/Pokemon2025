@@ -15,18 +15,29 @@ extension UI.Funnel.Details {
     // MARK: - Stored Properties
 
     /// Represents the currently selected Pokémon for the detail view.
-    @Published var selectedPokemon: Pokemon?
+    @Published var selectedPokemon: Model.Entity.Pokemon?
+
+    /// Represents the currently selected Pokémon Pokedex information for the detail view.
+    @Published var selectedPokemonPokedexInformation: PokemonInformation?
+
+    /// Tracks the current loading state for the details view's local operations (such as fetching Pokédex information).
+    @Published var localState: LocalState<Empty, Never> = .idle
 
     // MARK: - Computed Properties
 
     /// Returns the name of the selected Pokémon or an empty string if none is selected.
     var name: String {
-      selectedPokemon?.name ?? ""
+      selectedPokemon?.name.capitalized ?? ""
     }
 
     /// Provides the URL string of the selected Pokémon's front image, or an empty string.
     var imageURL: String {
       selectedPokemon?.frontImage.stringURL ?? ""
+    }
+
+    /// Returns a human-readable description of the currently selected Pokémon's Pokédex information.
+    var readablePokedexInformation: String {
+      selectedPokemonPokedexInformation?.description ?? ""
     }
 
     // MARK: - Update
@@ -43,6 +54,34 @@ extension UI.Funnel.Details {
       super.update(state: state)
 
       selectedPokemon = state.pokemonDetail.selectedPokemon
+      selectedPokemonPokedexInformation = state.pokemonDetail.pokedexInformation
+    }
+
+    // MARK: - Functions
+
+    /// Asynchronously fetches detailed Pokédex information for the currently selected Pokémon.
+    ///
+    /// This method sets the local state to `.loading` before attempting to retrieve data. If no Pokémon is
+    /// currently selected, it sets the state back to `.idle` and returns early. Otherwise, it performs an
+    /// asynchronous operation to fetch the Pokédex information using the `GetPokedexAssistantInformation` use case.
+    /// Upon successful completion, the local state is updated to `.success`.
+    ///
+    /// - Throws: Propagates any error thrown by the underlying use case execution.
+    ///
+    /// - Note: This method should be called when up-to-date Pokédex information is required for the selected Pokémon.
+    @MainActor
+    func getPokedexInformation() async throws {
+      localState = .loading
+      guard let selectedPokemon else {
+        localState = .idle
+        return
+      }
+      try await UseCase.GetPokedexAssistantInformation().execute(for: selectedPokemon)
+      localState = .success
+    }
+
+    deinit {
+      UseCase.ClearPokedexAssistantInformationCache().execute()
     }
   }
 }

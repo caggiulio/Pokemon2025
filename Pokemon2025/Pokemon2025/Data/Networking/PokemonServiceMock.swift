@@ -16,8 +16,8 @@ struct PokemonServiceMock: PokemonServiceProtocol {
   // MARK: - Functions
 
   /// Get and transform the `PokemonDataSource` fetched from the network in the `Pokemon` return object.
-  func getPokemon(id: String) async throws -> Pokemon {
-    Pokemon(
+  func getPokemon(id: String) async throws -> Model.Entity.Pokemon {
+    Model.Entity.Pokemon(
       abilities: [.init(name: "Ability")],
       baseExperience: 70,
       forms: [.init(name: "Form")],

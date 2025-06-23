@@ -50,7 +50,14 @@ extension UI.Funnel.Details {
                 Text(viewModel.name)
                   .font(.title)
                   .fontWeight(.bold)
-                  .foregroundStyle(.red)
+                  .foregroundStyle(.black)
+                  .padding()
+                  .transition(.asymmetric(insertion: .scale, removal: .identity))
+
+                Text(viewModel.readablePokedexInformation)
+                  .font(.body)
+                  .fontWeight(.medium)
+                  .foregroundStyle(.black)
                   .padding()
                   .transition(.asymmetric(insertion: .scale, removal: .identity))
               }
@@ -62,6 +69,10 @@ extension UI.Funnel.Details {
             .padding(.horizontal, !isExpanded ? .large : .medium)
             .animation(.smooth, value: isExpanded)
           }
+        }
+        .loader(isShowing: viewModel.localState.isLoading)
+        .toolbar {
+          toolbar
         }
     }
 
@@ -122,6 +133,28 @@ extension UI.Funnel.Details {
           aspect: .fit,
           blur: blur
         )
+      }
+    }
+
+    /// A toolbar content builder that provides a refresh button for fetching Pokédex information.
+    ///
+    /// This toolbar contains a single button, represented by a waveform circle system image.
+    /// When tapped, it asynchronously invokes the `getPokedexInformation()` method on the view model to update or fetch
+    /// the latest Pokédex information for the displayed Pokémon. The button is placed as a toolbar item within the view.
+    ///
+    /// - Note: The button's action is performed within a Swift concurrency `Task`, allowing it to call the async method.
+    /// - Returns: The toolbar content for the view, including the Pokédex refresh button.
+    @ToolbarContentBuilder
+    var toolbar: some ToolbarContent {
+      ToolbarItem {
+        Button {
+          Task {
+            try await viewModel.getPokedexInformation()
+            isExpanded = true
+          }
+        } label: {
+          Image(systemName: "waveform.circle")
+        }
       }
     }
   }

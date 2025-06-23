@@ -51,8 +51,8 @@ struct PokemonDataSource: Decodable {
 // MARK: - Normalizable
 
 extension PokemonDataSource: Normalizable {
-  func normalizedForApp() -> Pokemon {
-    Pokemon(
+  func normalizedForApp() -> Model.Entity.Pokemon {
+    Self.Model(
       abilities: abilities.map { $0.ability.normalizedForApp() },
       baseExperience: baseExperience,
       forms: forms.map { $0.normalizedForApp() },

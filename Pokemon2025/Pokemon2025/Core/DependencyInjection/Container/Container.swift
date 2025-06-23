@@ -43,4 +43,14 @@ extension Container {
     self { Assembler.Home() }
       .scope(.cached)
   }
+
+  var foundationModelPokedexAssistant: Factory<FoundationModelPokedexAssistant> {
+    self { FoundationModelPokedexAssistant() }
+      .scope(.cached)
+  }
+
+  var pokedexAssistanService: Factory<PokedexAssistantServiceProtocol> {
+    self { PokedexAssistantService() }
+      .scope(.cached)
+  }
 }

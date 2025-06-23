@@ -20,7 +20,7 @@ struct PokemonService: PokemonServiceProtocol {
 
   // MARK: - Functions
 
-  func getPokemon(id: String) async throws -> Pokemon {
+  func getPokemon(id: String) async throws -> Model.Entity.Pokemon {
     let request = HTTPRequest {
       $0.path = "/pokemon/\(id)"
       $0.method = .get

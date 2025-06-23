@@ -52,4 +52,39 @@ extension UseCase {
       try await pokemonRepository.fetchPokemonList()
     }
   }
+
+  /// Use case for retrieving additional information for a Pokémon from the Pokédex assistant.
+  struct GetPokedexAssistantInformation {
+    /// The Pokémon repository dependency.
+    @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
+
+    /// Retrieves additional Pokédex assistant information for a given Pokémon.
+    ///
+    /// This method queries the repository for extra details about the specified Pokémon,
+    /// such as flavor text, descriptions, or other auxiliary data obtained from the Pokédex assistant.
+    ///
+    /// - Parameter pokemon: The `Pokemon` entity for which additional information is requested.
+    /// - Throws: Rethrows errors encountered by the repository during retrieval.
+    /// - Note: This operation is asynchronous and may involve network or database access.
+    func execute(for pokemon: Model.Entity.Pokemon) async throws {
+      try await pokemonRepository.getPokedexInformation(for: pokemon)
+    }
+  }
+
+  /// Use case for clearing the Pokédex assistant's cached information.
+  struct ClearPokedexAssistantInformationCache {
+    /// The Pokémon repository dependency.
+    @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
+
+    /// Clears the cached Pokédex assistant information.
+    ///
+    /// This function instructs the repository to remove any locally stored data
+    /// related to Pokédex assistant details, ensuring that subsequent queries
+    /// will fetch fresh information rather than using potentially outdated cache.
+    ///
+    /// - Note: This operation is synchronous and does not throw errors.
+    func execute() {
+      pokemonRepository.clearPokedexInformation()
+    }
+  }
 }
