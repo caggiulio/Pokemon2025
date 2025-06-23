@@ -18,8 +18,6 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
   /// The injected language model assistant used to interact with the underlying language model service.
   @Injected(\.foundationModelPokedexAssistant) private var pokedexAssistantService: FoundationModelPokedexAssistant
 
-  @Injected(\.stateContainer) private var state: StateContainer
-
   // MARK: - Computed Properties
 
   /// Provides a language model session used for generating responses related to Pokémon data.
