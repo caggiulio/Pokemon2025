@@ -57,7 +57,7 @@ extension UI.Funnel.Home {
     /// Creates a view representing a single Pokémon cell including its image and name.
     /// - Parameter pokemon: The Pokémon item to display in the cell.
     /// - Returns: A SwiftUI view representing the Pokémon cell.
-    private func pokemonCell(for pokemon: PokemonListItem) -> some SwiftUI.View {
+    private func pokemonCell(for pokemon: Model.Entity.PokemonListItem) -> some SwiftUI.View {
       ZStack {
         VStack(spacing: .zero) {
           AsyncImage(url: URL(string: pokemon.imageURL)) { image in

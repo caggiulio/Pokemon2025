@@ -20,7 +20,7 @@ struct OfficialArtworkDataSource: Decodable {
 // MARK: - Normalizable
 
 extension OfficialArtworkDataSource: Normalizable {
-  func normalizedForApp() -> OfficialArtwork {
-    OfficialArtwork(frontDefault: frontDefault)
+  func normalizedForApp() -> Model.Entity.OfficialArtwork {
+    Model.Entity.OfficialArtwork(frontDefault: frontDefault)
   }
 }

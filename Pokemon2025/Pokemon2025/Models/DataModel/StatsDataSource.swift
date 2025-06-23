@@ -26,7 +26,7 @@ struct StatsDataSource: Decodable {
 // MARK: - Normalizable
 
 extension StatsDataSource: Normalizable {
-  func normalizedForApp() -> Stat {
-    Stat(name: stat.name, baseStat: Float(baseStat), percentStat: Float(baseStat) / 100)
+  func normalizedForApp() -> Model.Entity.Stat {
+    Model.Entity.Stat(name: stat.name, baseStat: Float(baseStat), percentStat: Float(baseStat) / 100)
   }
 }

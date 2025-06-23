@@ -29,7 +29,7 @@ struct PokemonService: PokemonServiceProtocol {
     return try await request.fetch(networking.client).decode(PokemonDataSource.self).normalizedForApp()
   }
 
-  func getPokemonList(next: String?) async throws -> PokemonList {
+  func getPokemonList(next: String?) async throws -> Model.Entity.PokemonList {
     let request: HTTPRequest
     guard let next, let nextURL = URL(string: next) else {
       request = HTTPRequest {
@@ -44,7 +44,7 @@ struct PokemonService: PokemonServiceProtocol {
     return try await executeGetPokemonList(with: request)
   }
 
-  private func executeGetPokemonList(with request: HTTPRequest) async throws -> PokemonList {
+  private func executeGetPokemonList(with request: HTTPRequest) async throws -> Model.Entity.PokemonList {
     try await request.fetch(networking.client).decode(PokemonListDataSource.self).normalizedForApp()
   }
 }

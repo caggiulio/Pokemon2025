@@ -19,8 +19,8 @@ struct PokemonListDataSource: Decodable {
 // MARK: - Normalizable
 
 extension PokemonListDataSource: Normalizable {
-  func normalizedForApp() -> PokemonList {
-    PokemonList(
+  func normalizedForApp() -> Model.Entity.PokemonList {
+    Model.Entity.PokemonList(
       count: count,
       next: next,
       pokemonItems: results.map { $0.normalizedForApp() }

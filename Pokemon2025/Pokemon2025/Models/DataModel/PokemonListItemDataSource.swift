@@ -42,8 +42,8 @@ struct PokemonListItemDataSource: Decodable {
 
 extension PokemonListItemDataSource: Normalizable {
   /// Normalizes the data source for use within the app as a `PokemonListItem`.
-  func normalizedForApp() -> PokemonListItem {
-    PokemonListItem(
+  func normalizedForApp() -> Model.Entity.PokemonListItem {
+    Model.Entity.PokemonListItem(
       name: name,
       imageURL: imageURL,
       id: getID(pokemonListItemDataSource: self),

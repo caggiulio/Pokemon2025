@@ -18,7 +18,7 @@ struct SpeciesDataSource: Decodable {
 // MARK: - Normalizable
 
 extension SpeciesDataSource: Normalizable {
-  func normalizedForApp() -> Species {
-    Species(name: name)
+  func normalizedForApp() -> Model.Entity.Species {
+    Model.Entity.Species(name: name)
   }
 }

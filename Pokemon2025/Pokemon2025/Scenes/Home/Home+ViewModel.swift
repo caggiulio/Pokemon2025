@@ -36,7 +36,7 @@ extension UI.Funnel.Home {
     @Published private(set) var localState: LocalState<Empty, Error> = .idle
 
     /// Holds the current list of Pokémon items to be displayed in the UI.
-    @Published private(set) var pokemons: [PokemonListItem] = []
+    @Published private(set) var pokemons: [Model.Entity.PokemonListItem] = []
 
     /// A reference to the app's navigation coordinator, injected using Factory's property wrapper.
     /// The coordinator is responsible for managing navigation and flow control within the Home UI,
@@ -44,7 +44,7 @@ extension UI.Funnel.Home {
     @Injected(\.coordinator) private var coordinator: Coordinator
 
     /// Holds the full unfiltered list of Pokémon items.
-    private var allPokemons: [PokemonListItem] = []
+    private var allPokemons: [Model.Entity.PokemonListItem] = []
 
     /// A set used to store Combine's `AnyCancellable` instances.
     private var cancellables: Set<AnyCancellable> = []
@@ -104,7 +104,7 @@ extension UI.Funnel.Home {
     ///
     /// - Parameter pokemon: The `PokemonListItem` whose name should be formatted.
     /// - Returns: The capitalized name of the Pokémon as a `String`.
-    func name(for pokemon: PokemonListItem) -> String {
+    func name(for pokemon: Model.Entity.PokemonListItem) -> String {
       return pokemon.name.capitalized
     }
 
@@ -117,7 +117,7 @@ extension UI.Funnel.Home {
     /// - Parameter pokemon: The `PokemonListItem` for which to fetch detailed information.
     /// - Throws: Rethrows any error encountered during the data fetch operation.
     @MainActor
-    func fetchPokemonDetail(for pokemon: PokemonListItem, animation: Namespace.ID) async throws {
+    func fetchPokemonDetail(for pokemon: Model.Entity.PokemonListItem, animation: Namespace.ID) async throws {
       localState = .loading
       do {
         try await UseCase.GetPokemonByIdentifier().execute(identifier: pokemon.id)
@@ -137,7 +137,7 @@ extension UI.Funnel.Home {
     ///
     /// - Parameter pokemon: The `PokemonListItem` for which to generate the transition identifier.
     /// - Returns: A hashable value representing the unique transition identifier for the Pokémon.
-    func matchedTransitionIdentifier(for pokemon: PokemonListItem) -> String {
+    func matchedTransitionIdentifier(for pokemon: Model.Entity.PokemonListItem) -> String {
       "pokemon#\(pokemon.id)"
     }
 

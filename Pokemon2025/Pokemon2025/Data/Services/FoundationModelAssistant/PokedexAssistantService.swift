@@ -51,7 +51,7 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
     name: "MewTwo",
     order: 1,
     species: .init(name: "Species"),
-    frontImage: FrontImage(stringURL: "https://pokeapi.co/api/v2/pokemon/3/"),
+    frontImage: Model.Entity.FrontImage(stringURL: "https://pokeapi.co/api/v2/pokemon/3/"),
     stats: [.init(name: "Stat", baseStat: 1, percentStat: 1)],
     weight: 4
   )

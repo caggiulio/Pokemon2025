@@ -18,7 +18,7 @@ struct AbilityDataSource: Decodable {
 // MARK: - Normalizable
 
 extension AbilityDataSource: Normalizable {
-  func normalizedForApp() -> Ability {
-    Ability(name: name)
+  func normalizedForApp() -> Model.Entity.Ability {
+    Model.Entity.Ability(name: name)
   }
 }

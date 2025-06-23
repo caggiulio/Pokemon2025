@@ -37,7 +37,7 @@ extension Repository {
       }
       var pokemonItems = stateContainer.state.pokemonList.pokemonList?.pokemonItems ?? []
       pokemonItems += pokemonList.pokemonItems
-      let newPokemonList = PokemonList(
+      let newPokemonList = Model.Entity.PokemonList(
         count: pokemonList.count,
         next: pokemonList.next,
         pokemonItems: pokemonItems

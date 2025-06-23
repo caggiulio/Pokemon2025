@@ -7,8 +7,10 @@
 
 import Foundation
 
-/// Represents a Pokémon species in the application.
-struct Species: PKMNModel {
-  /// The name of the Pokémon species.
-  let name: String
+extension Model.Entity {
+  /// Represents a Pokémon species in the application.
+  struct Species: PKMNModel {
+    /// The name of the Pokémon species.
+    let name: String
+  }
 }

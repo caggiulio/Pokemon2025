@@ -28,5 +28,5 @@ protocol PokemonServiceProtocol {
   /// - Returns: A `PokemonList` containing Pokémon entries and metadata for pagination.
   /// - Throws: An error if the fetch fails.
   /// - Note: This method is asynchronous.
-  func getPokemonList(next: String?) async throws -> PokemonList
+  func getPokemonList(next: String?) async throws -> Model.Entity.PokemonList
 }

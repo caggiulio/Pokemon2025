@@ -18,7 +18,7 @@ struct FormsDataSource: Decodable {
 // MARK: - Normalizable
 
 extension FormsDataSource: Normalizable {
-  func normalizedForApp() -> Forms {
-    Forms(name: name)
+  func normalizedForApp() -> Model.Entity.Forms {
+    Model.Entity.Forms(name: name)
   }
 }

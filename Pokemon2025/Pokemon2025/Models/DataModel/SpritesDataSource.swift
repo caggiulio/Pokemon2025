@@ -33,7 +33,7 @@ struct SpritesDataSource: Decodable {
 // MARK: - Normalizable
 
 extension SpritesDataSource: Normalizable {
-  func normalizedForApp() -> Sprites {
-    Sprites(officialArtwork: officialArtwork.normalizedForApp())
+  func normalizedForApp() -> Model.Entity.Sprites {
+    Model.Entity.Sprites(officialArtwork: officialArtwork.normalizedForApp())
   }
 }

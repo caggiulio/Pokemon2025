@@ -6,7 +6,7 @@
 /// `func normalizedForApp() -> model` serves as a bridge between models arriving from the API services
 /// and models created for the app with the UI and app architecture in mind.
 protocol Normalizable {
-  associatedtype Model
+  associatedtype ModelType
 
-  func normalizedForApp() -> Model
+  func normalizedForApp() -> ModelType
 }
