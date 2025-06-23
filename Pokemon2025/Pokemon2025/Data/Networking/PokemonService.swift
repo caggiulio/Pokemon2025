@@ -45,6 +45,6 @@ struct PokemonService: PokemonServiceProtocol {
   }
 
   private func executeGetPokemonList(with request: HTTPRequest) async throws -> Model.Entity.PokemonList {
-    try await request.fetch(networking.client).decode(PokemonListDataSource.self).normalizedForApp()
+    try await request.fetch(networking.client).decode(Model.Data.PokemonListDataSource.self).normalizedForApp()
   }
 }

@@ -10,11 +10,11 @@ import Foundation
 /// A data transfer object representing a Pokémon fetched from an external API, containing all core details as received from the network.
 struct PokemonDataSource: Decodable {
   /// The abilities that this Pokémon can have.
-  let abilities: [AbilitiesDataSource]
+  let abilities: [Model.Data.AbilitiesDataSource]
   /// The base experience gained for defeating this Pokémon.
   let baseExperience: Int
   /// Different forms the Pokémon can take.
-  let forms: [FormsDataSource]
+  let forms: [Model.Data.FormsDataSource]
   /// The height of the Pokémon in decimetres.
   let height: Int
   /// The unique identifier for the Pokémon.
@@ -24,11 +24,11 @@ struct PokemonDataSource: Decodable {
   /// The order for sorting Pokémon; usually according to the National Pokédex.
   let order: Int
   /// The species data associated with the Pokémon.
-  let species: SpeciesDataSource
+  let species: Model.Data.SpeciesDataSource
   /// Visual representations/sprites of the Pokémon.
-  let sprites: SpritesDataSource
+  let sprites: Model.Data.SpritesDataSource
   /// The base stats of the Pokémon.
-  let stats: [StatsDataSource]
+  let stats: [Model.Data.StatsDataSource]
   /// The weight of the Pokémon in hectograms.
   let weight: Int
 

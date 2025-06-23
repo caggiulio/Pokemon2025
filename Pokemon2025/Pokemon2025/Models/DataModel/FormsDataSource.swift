@@ -7,17 +7,19 @@
 
 import Foundation
 
-/// Represents the data source for a Pokémon form, typically used for decoding API responses.
-struct FormsDataSource: Decodable {
-  /// The name of the Pokémon form.
-  let name: String
-  /// The URL endpoint associated with the Pokémon form.
-  let url: String
+extension Model.Data {
+  /// Represents the data source for a Pokémon form, typically used for decoding API responses.
+  struct FormsDataSource: Decodable {
+    /// The name of the Pokémon form.
+    let name: String
+    /// The URL endpoint associated with the Pokémon form.
+    let url: String
+  }
 }
 
 // MARK: - Normalizable
 
-extension FormsDataSource: Normalizable {
+extension Model.Data.FormsDataSource: Normalizable {
   func normalizedForApp() -> Model.Entity.Forms {
     Model.Entity.Forms(name: name)
   }

@@ -7,17 +7,19 @@
 
 import Foundation
 
-/// Data model representing a Pokémon species entry from the remote API.
-struct SpeciesDataSource: Decodable {
-  /// The name of the species.
-  let name: String
-  /// The detailed URL for this species entry in the API.
-  let url: String
+extension Model.Data {
+  /// Data model representing a Pokémon species entry from the remote API.
+  struct SpeciesDataSource: Decodable {
+    /// The name of the species.
+    let name: String
+    /// The detailed URL for this species entry in the API.
+    let url: String
+  }
 }
 
 // MARK: - Normalizable
 
-extension SpeciesDataSource: Normalizable {
+extension Model.Data.SpeciesDataSource: Normalizable {
   func normalizedForApp() -> Model.Entity.Species {
     Model.Entity.Species(name: name)
   }
