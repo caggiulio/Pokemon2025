@@ -13,5 +13,5 @@ struct PokemonDetail {
   var selectedPokemon: Model.Entity.Pokemon?
 
   /// The pokedex information provided by assistant.
-  var pokedexInformation: PokemonInformation?
+  var pokedexInformation: Model.Foundation.PokemonInformation?
 }

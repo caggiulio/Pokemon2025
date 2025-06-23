@@ -18,7 +18,7 @@ extension UI.Funnel.Details {
     @Published var selectedPokemon: Model.Entity.Pokemon?
 
     /// Represents the currently selected Pokémon Pokedex information for the detail view.
-    @Published var selectedPokemonPokedexInformation: PokemonInformation?
+    @Published var selectedPokemonPokedexInformation: Model.Foundation.PokemonInformation?
 
     /// Tracks the current loading state for the details view's local operations (such as fetching Pokédex information).
     @Published var localState: LocalState<Empty, Never> = .idle

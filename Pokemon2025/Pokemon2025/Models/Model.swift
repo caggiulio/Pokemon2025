@@ -11,4 +11,8 @@ enum Model {}
 
 extension Model {
   enum Entity {}
+
+  enum Data {}
+
+  enum Foundation {}
 }

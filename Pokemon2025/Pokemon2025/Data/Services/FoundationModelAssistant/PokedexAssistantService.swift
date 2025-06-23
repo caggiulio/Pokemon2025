@@ -31,10 +31,10 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
   /// - Parameter pokemon: The Pokémon for which to fetch information.
   /// - Returns: A `PokemonInformation` object containing the detailed Pokedex entry for the given Pokémon.
   /// - Throws: An error if the language model request fails.
-  func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> PokemonInformation {
+  func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation {
     let response = try await session.respond(
       to: "Give me the Pokedex information for the Pokemon number #\(pokemon.id), with the name \(pokemon.name)",
-      generating: PokemonInformation.self
+      generating: Model.Foundation.PokemonInformation.self
     )
     return response.content
   }

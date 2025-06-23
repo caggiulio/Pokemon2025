@@ -14,5 +14,5 @@ protocol PokedexAssistantServiceProtocol {
   /// - Parameter pokemon: The `Pokemon` instance representing the Pokémon to query.
   /// - Returns: A `PokemonInformation` object containing comprehensive information about the specified Pokémon.
   /// - Throws: An error if the information could not be retrieved.
-  func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> PokemonInformation
+  func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation
 }
