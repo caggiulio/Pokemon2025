@@ -22,31 +22,34 @@ struct LoaderModifier: ViewModifier {
   /// - Parameter content: The content to which the `Loader` view will be added as an overlay.
   /// - Returns: The content with the `Toast` view added as an overlay.
   func body(content: Content) -> some View {
-    ZStack {
-      content
-
-      if isShowing {
-        VStack {
-          Image(.pokeball)
-            .resizable()
-            .frame(width: .xLarge, height: .xLarge)
-            .phaseAnimator(AnimationPhase.allCases) { view, phase in
-              view
-                .rotationEffect(
-                  phase == .start ? .degrees(.zero) : phase == .middle ? .degrees(40) : .degrees(30)
-                )
-            } animation: { phase in
-              switch phase {
-              case .start: .bouncy(duration: 0.5, extraBounce: 0.35)
-              case .middle: .spring(duration: 0.3, bounce: 0.25)
-              case .end: .smooth(duration: 0.5, extraBounce: 0.85)
+    content
+      .blur(radius: isShowing ? .micro : .zero)
+      .overlay {
+        if isShowing {
+          VStack {
+            Image(.pokeball)
+              .resizable()
+              .frame(width: .xxLarge, height: .xxLarge)
+              .phaseAnimator(AnimationPhase.allCases) { view, phase in
+                view
+                  .rotationEffect(
+                    phase == .start ? .degrees(.zero) : phase == .middle ? .degrees(40) : .degrees(30)
+                  )
+              } animation: { phase in
+                switch phase {
+                case .start: .bouncy(duration: 0.5, extraBounce: 0.35)
+                case .middle: .spring(duration: 0.3, bounce: 0.25)
+                case .end: .smooth(duration: 0.5, extraBounce: 0.85)
+                }
               }
-            }
+              .padding(.medium)
+          }
+          .glassEffect()
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .background(.black.opacity(0.3))
+          .ignoresSafeArea()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.5))
       }
-    }
   }
 }
 
@@ -66,6 +69,9 @@ public extension View {
 }
 
 #Preview("Loader") {
-  ZStack {}
-    .loader(isShowing: .constant(true))
+  ZStack {
+    Color.red
+      .ignoresSafeArea()
+  }
+  .loader(isShowing: .constant(true))
 }

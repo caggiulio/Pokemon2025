@@ -21,7 +21,7 @@ extension UI.Funnel.Splash {
     func didAppear() {
       localState = .success(
         SplashModel(
-          resource: .logo,
+          resource: .pokeball,
           imageSize: CGSize(width: .xxLarge, height: .xxLarge)
         )
       )

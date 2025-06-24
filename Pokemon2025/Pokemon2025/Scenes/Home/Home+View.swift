@@ -30,21 +30,19 @@ extension UI.Funnel.Home {
 
     var body: some SwiftUI.View {
       ZStack {
-        Color.red
-          .ignoresSafeArea(.all)
-
         ScrollView(.vertical) {
           LazyVGrid(
             columns: [
               GridItem(.flexible()),
               GridItem(.flexible()),
-            ]
+            ],
+            spacing: .small
           ) {
             ForEach(viewModel.pokemons) {
               pokemonCell(for: $0)
             }
-            .padding(.horizontal, .xSmall)
           }
+          .padding(.horizontal, .small)
         }
 
         UI.Funnel.Home.View.Search(isSearchingBinding: $viewModel.isSearching)
@@ -52,6 +50,7 @@ extension UI.Funnel.Home {
       }
       .navigationTitle(viewModel.navigationTitle)
       .loader(isShowing: viewModel.localState.isLoading)
+      .animatedBackground()
     }
 
     /// Creates a view representing a single Pokémon cell including its image and name.
@@ -77,10 +76,15 @@ extension UI.Funnel.Home {
             .padding(.bottom, .small)
         }
       }
-      .frame(width: .xLarge + .small, height: .xLarge + .small, alignment: .center)
-      .padding(.small)
-      .glassEffect(.regular.interactive(), in: RoundedRectangle(cornerRadius: .small))
+      .frame(width: .xLarge + .medium, height: .xLarge + .medium)
+      .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
       .matchedTransitionSource(id: viewModel.matchedTransitionIdentifier(for: pokemon), in: animation)
+      .scrollTransition { view, phase in
+        view
+          .scaleEffect(phase.isIdentity ? 1 : 0.85)
+          .blur(radius: phase.isIdentity ? .zero : .micro)
+          .grayscale(phase.isIdentity ? .zero : 0.5)
+      }
       .onAppear {
         if pokemon == viewModel.pokemons.last {
           Task {

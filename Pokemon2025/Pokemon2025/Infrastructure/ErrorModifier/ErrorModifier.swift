@@ -19,6 +19,9 @@ struct ErrorModifier: ViewModifier {
   /// The `Error`.
   var error: Error?
 
+  /// The `Interaction` called when the confirm action is tapped.
+  var confirmAction: Interaction?
+
   // MARK: - Body
 
   /// Adds the error view as an overlay.
@@ -28,7 +31,10 @@ struct ErrorModifier: ViewModifier {
     ZStack {
       content
         .alert("Error", isPresented: $isShowing) {
-          Button(role: .confirm, action: { isShowing = false })
+          Button(role: .confirm) {
+            confirmAction?()
+            isShowing = false
+          }
         } message: {
           Text(error?.localizedDescription ?? "")
         }
@@ -37,13 +43,14 @@ struct ErrorModifier: ViewModifier {
   }
 }
 
-public extension View {
+extension View {
   /// Displays the `Error` view as an overlay.
   /// - Parameters:
   ///   - isShowing: The `Binding<Bool>` used to show the loader.
   ///   - error: The `Error`.
+  ///   - confirmAction: The `Interaction` called when the confirm action is tapped.
   /// - Returns: A view with the alert error view added as an overlay.
-  func error(isShowing: Binding<Bool>, error: Error?) -> some View {
-    self.modifier(ErrorModifier(isShowing: isShowing, error: error))
+  func error(isShowing: Binding<Bool>, error: Error?, confirmAction: Interaction?) -> some View {
+    self.modifier(ErrorModifier(isShowing: isShowing, error: error, confirmAction: confirmAction))
   }
 }

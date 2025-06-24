@@ -31,10 +31,12 @@ extension UI.Funnel.Splash {
       MystiqueView(localState: viewModel.localState) { splashModel in
         ZStack {
           Image(splashModel.resource)
+            .resizable()
             .frame(width: splashModel.imageSize.width, height: splashModel.imageSize.height)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .edgesIgnoringSafeArea(.all)
+        .animatedBackground()
       }
       .onAppear(perform: viewModel.didAppear)
       .fullScreenCover(isPresented: $coordinator.isHomePresented) {

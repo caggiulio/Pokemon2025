@@ -84,6 +84,11 @@ extension UI.Funnel.Details {
       }
     }
 
+    /// The `Interaction` called when the confirmation is tapped on error view.
+    func errorConfirmationIsTapped() {
+      localState = .idle
+    }
+
     deinit {
       UseCase.ClearPokedexAssistantInformationCache().execute()
     }

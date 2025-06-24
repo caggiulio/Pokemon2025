@@ -15,6 +15,7 @@ extension UI.Funnel.Home.View {
 
     /// Indicates whether the search interaction is currently active, from the environment.
     @Environment(\.isSearching) var isSearching
+
     /// Binding to the external search state, allowing two-way sync with parent.
     @Binding var isSearchingBinding: Bool
 

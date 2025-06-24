@@ -9,7 +9,7 @@ import Foundation
 
 extension Model.Entity {
   /// A lightweight model representing a Pokémon displayed in a list, including its name, image URL, identifier, and ranking.
-  struct PokemonListItem: PKMNModel, Identifiable, Equatable {
+  struct PokemonListItem: PKMNModel, Identifiable, Equatable, Hashable {
     /// The display name of the Pokémon.
     var name: String
     /// The URL string pointing to the Pokémon's image.

@@ -28,8 +28,9 @@ extension UI.Funnel.Details {
     // MARK: - Body
 
     var body: some SwiftUI.View {
-      Color.red
+      EmptyView()
         .ignoresSafeArea()
+        .animatedBackground()
         .overlay {
           ScrollView {
             VStack(spacing: .small) {
@@ -62,16 +63,20 @@ extension UI.Funnel.Details {
                   .transition(.asymmetric(insertion: .scale, removal: .identity))
               }
             }
-            .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
             .frame(maxWidth: .infinity)
-            .glassEffect(in: RoundedRectangle(cornerRadius: .small))
+            .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
             .padding(.top, !isExpanded ? .large : .zero)
             .padding(.horizontal, !isExpanded ? .large : .medium)
+            .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
             .animation(.smooth, value: isExpanded)
           }
         }
         .loader(isShowing: viewModel.localState.isLoading)
-        .error(isShowing: viewModel.localState.isError, error: viewModel.localState.error)
+        .error(
+          isShowing: viewModel.localState.isError,
+          error: viewModel.localState.error,
+          confirmAction: viewModel.errorConfirmationIsTapped
+        )
         .toolbar {
           toolbar
         }
