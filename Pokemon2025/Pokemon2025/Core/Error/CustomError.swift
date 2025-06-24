@@ -9,6 +9,7 @@ import Foundation
 public enum CustomError: Swift.Error, Equatable {
   case genericError(String)
   case resourceNotFound
+  case pokedexAssistantNotAvailable
 }
 
 // MARK: LocalizedError
@@ -23,6 +24,9 @@ extension CustomError: LocalizedError {
 
     case .resourceNotFound:
       return "Resource not found"
+
+    case .pokedexAssistantNotAvailable:
+      return "Pokedex Assistant is not available"
     }
   }
 }

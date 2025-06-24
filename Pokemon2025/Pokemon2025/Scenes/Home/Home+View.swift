@@ -43,9 +43,9 @@ extension UI.Funnel.Home {
             ForEach(viewModel.pokemons) {
               pokemonCell(for: $0)
             }
+            .padding(.horizontal, .xSmall)
           }
         }
-        .padding(.horizontal, .xSmall)
 
         UI.Funnel.Home.View.Search(isSearchingBinding: $viewModel.isSearching)
           .searchable(text: $viewModel.searchString)

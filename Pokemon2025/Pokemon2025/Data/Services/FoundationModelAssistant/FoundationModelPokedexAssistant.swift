@@ -14,12 +14,12 @@ struct FoundationModelPokedexAssistant {
   // MARK: - Stored Properties
 
   /// The default system language model used for checking availability and session creation.
-  private static let model = SystemLanguageModel.default
+  private let model = SystemLanguageModel.default
 
   // MARK: - Computed Properties
 
   /// Indicates whether the default system language model is available on this device.
-  public static var isAvailable: Bool {
+  public var isAvailable: Bool {
     return model.isAvailable
   }
 

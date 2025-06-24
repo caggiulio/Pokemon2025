@@ -30,6 +30,9 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
   /// - Returns: A `PokemonInformation` object containing the detailed Pokedex entry for the given Pokémon.
   /// - Throws: An error if the language model request fails.
   func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation {
+    guard pokedexAssistantService.isAvailable else {
+      throw CustomError.pokedexAssistantNotAvailable
+    }
     let response = try await session.respond(
       to: "Give me the Pokedex information for the Pokemon number #\(pokemon.id), with the name \(pokemon.name)",
       generating: Model.Foundation.PokemonInformation.self

@@ -21,7 +21,7 @@ extension UI.Funnel.Details {
     @Published var selectedPokemonPokedexInformation: Model.Foundation.PokemonInformation?
 
     /// Tracks the current loading state for the details view's local operations (such as fetching Pokédex information).
-    @Published var localState: LocalState<Empty, Never> = .idle
+    @Published var localState: LocalState<Empty, Error> = .idle
 
     // MARK: - Computed Properties
 
@@ -76,8 +76,12 @@ extension UI.Funnel.Details {
         localState = .idle
         return
       }
-      try await UseCase.GetPokedexAssistantInformation().execute(for: selectedPokemon)
-      localState = .success
+      do {
+        try await UseCase.GetPokedexAssistantInformation().execute(for: selectedPokemon)
+        localState = .success
+      } catch {
+        localState = .failure(error)
+      }
     }
 
     deinit {

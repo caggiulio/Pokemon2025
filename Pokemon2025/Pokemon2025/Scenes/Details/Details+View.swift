@@ -71,6 +71,7 @@ extension UI.Funnel.Details {
           }
         }
         .loader(isShowing: viewModel.localState.isLoading)
+        .error(isShowing: viewModel.localState.isError, error: viewModel.localState.error)
         .toolbar {
           toolbar
         }
