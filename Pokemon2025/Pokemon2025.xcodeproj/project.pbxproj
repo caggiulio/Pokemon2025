@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73001A2F2D85D552009241D5 /* RealHTTP in Frameworks */ = {isa = PBXBuildFile; productRef = 73001A2E2D85D552009241D5 /* RealHTTP */; };
+		9B40A6862E0BE3CF003DFD58 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9B40A6852E0BE3CF003DFD58 /* CachedAsyncImage */; };
 		9BD21C942D82D2F700636B39 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 9BD21C932D82D2F700636B39 /* Factory */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +35,18 @@
 		4DB8CD712A34BE69001FD9B8 /* Pokemon2025UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pokemon2025UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B40A6882E0BEC50003DFD58 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4DB8CD562A34BE66001FD9B8 /* Pokemon2025 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		736C253B2D85DA9200016EE3 /* Pokemon2025 */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Pokemon2025; sourceTree = "<group>"; };
+		736C253B2D85DA9200016EE3 /* Pokemon2025 */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (9B40A6882E0BEC50003DFD58 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Pokemon2025; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B40A6862E0BE3CF003DFD58 /* CachedAsyncImage in Frameworks */,
 				73001A2F2D85D552009241D5 /* RealHTTP in Frameworks */,
 				9BD21C942D82D2F700636B39 /* Factory in Frameworks */,
 			);
@@ -108,6 +120,7 @@
 			packageProductDependencies = (
 				9BD21C932D82D2F700636B39 /* Factory */,
 				73001A2E2D85D552009241D5 /* RealHTTP */,
+				9B40A6852E0BE3CF003DFD58 /* CachedAsyncImage */,
 			);
 			productName = SwiftUIArchitecture;
 			productReference = 4DB8CD572A34BE66001FD9B8 /* Pokemon2025.app */;
@@ -184,6 +197,7 @@
 			packageReferences = (
 				9BD21C922D82D2F700636B39 /* XCRemoteSwiftPackageReference "Factory" */,
 				73001A2D2D85D552009241D5 /* XCRemoteSwiftPackageReference "RealHTTP" */,
+				9B40A6842E0BE3CF003DFD58 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 4DB8CD582A34BE66001FD9B8 /* Products */;
 			projectDirPath = "";
@@ -405,8 +419,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pokemon2025/Preview Content\"";
 				DEVELOPMENT_TEAM = GF6WZHA9DX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pokemon2025/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -420,6 +438,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ncg.SwiftUIArchitecture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -440,8 +459,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pokemon2025/Preview Content\"";
 				DEVELOPMENT_TEAM = GF6WZHA9DX;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pokemon2025/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -455,6 +478,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ncg.SwiftUIArchitecture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -588,6 +612,14 @@
 				minimumVersion = 1.9.0;
 			};
 		};
+		9B40A6842E0BE3CF003DFD58 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		9BD21C922D82D2F700636B39 /* XCRemoteSwiftPackageReference "Factory" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Factory.git";
@@ -603,6 +635,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 73001A2D2D85D552009241D5 /* XCRemoteSwiftPackageReference "RealHTTP" */;
 			productName = RealHTTP;
+		};
+		9B40A6852E0BE3CF003DFD58 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B40A6842E0BE3CF003DFD58 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		9BD21C932D82D2F700636B39 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;

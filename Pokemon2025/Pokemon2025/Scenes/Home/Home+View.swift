@@ -5,6 +5,7 @@
 //  Created by Nunzio Giulio Caggegi on 11/06/23.
 //
 
+import CachedAsyncImage
 import Factory
 import SwiftUI
 
@@ -59,14 +60,14 @@ extension UI.Funnel.Home {
     private func pokemonCell(for pokemon: Model.Entity.PokemonListItem) -> some SwiftUI.View {
       ZStack {
         VStack(spacing: .zero) {
-          AsyncImage(url: URL(string: pokemon.imageURL)) { image in
+          CachedAsyncImage(url: URL(string: pokemon.imageURL)) { image in
             image
               .resizable()
-              .frame(width: .large + .medium, height: .large + .medium)
+              .aspectRatio(contentMode: .fit)
           } placeholder: {
             Image(.pokeball)
               .resizable()
-              .frame(width: .large + .medium, height: .large + .medium)
+              .aspectRatio(contentMode: .fit)
           }
 
           Text(viewModel.name(for: pokemon))
@@ -76,7 +77,6 @@ extension UI.Funnel.Home {
             .padding(.bottom, .small)
         }
       }
-      .frame(width: .xLarge + .medium, height: .xLarge + .medium)
       .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
       .matchedTransitionSource(id: viewModel.matchedTransitionIdentifier(for: pokemon), in: animation)
       .scrollTransition { view, phase in

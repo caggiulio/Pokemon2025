@@ -5,6 +5,7 @@
 //  Created by Nunzio Giulio Caggegi on 18/06/25.
 //
 
+import CachedAsyncImage
 import SwiftUI
 
 /// Extension to provide the Details funnel views.
@@ -42,7 +43,7 @@ extension UI.Funnel.Details {
                 Image(systemName: !isExpanded ? "arrow.up" : "arrow.down")
                   .padding(.small)
               }
-              .glassEffect(.regular.interactive(), in: .circle)
+              .buttonStyle(.glass)
               .padding(.bottom, .small)
               .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp)))
               .foregroundStyle(.black)
@@ -54,6 +55,7 @@ extension UI.Funnel.Details {
                   .foregroundStyle(.black)
                   .padding()
                   .transition(.asymmetric(insertion: .scale, removal: .identity))
+                  .glassEffect()
 
                 Text(viewModel.readablePokedexInformation)
                   .font(.body)
@@ -64,7 +66,6 @@ extension UI.Funnel.Details {
               }
             }
             .frame(maxWidth: .infinity)
-            .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
             .padding(.top, !isExpanded ? .large : .zero)
             .padding(.horizontal, !isExpanded ? .large : .medium)
             .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
@@ -99,7 +100,7 @@ extension UI.Funnel.Details {
       aspect: ContentMode,
       blur: CGFloat
     ) -> some SwiftUI.View {
-      AsyncImage(url: URL(string: url)) { image in
+      CachedAsyncImage(url: URL(string: url)) { image in
         image
           .resizable()
           .aspectRatio(contentMode: aspect)

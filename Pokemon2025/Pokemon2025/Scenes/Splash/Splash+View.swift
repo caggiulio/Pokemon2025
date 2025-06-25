@@ -36,9 +36,11 @@ extension UI.Funnel.Splash {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .edgesIgnoringSafeArea(.all)
-        .animatedBackground()
+        .background(.red)
       }
-      .onAppear(perform: viewModel.didAppear)
+      .onAppear {
+        viewModel.didAppear()
+      }
       .fullScreenCover(isPresented: $coordinator.isHomePresented) {
         NavigationStack(path: $coordinator.homePath) {
           mainAssembler.view(for: .home)
