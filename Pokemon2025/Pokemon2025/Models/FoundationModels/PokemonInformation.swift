@@ -7,6 +7,7 @@
 
 import Foundation
 import FoundationModels
+import SwiftUI
 
 extension Model.Foundation {
   /// Represents detailed information about a Pokémon, including its Pokedex description and advantageous categories.
@@ -19,6 +20,9 @@ extension Model.Foundation {
     /// The types of the Pokemon.
     @Guide(description: "The types with which the Pokemon is identified.")
     var types: [String]
-  }
 
+    /// The type color of the Pokemon.
+    @Guide(description: "The type SwiftUI Color HEX of the Pokemon. (Example: #ff0000)")
+    var color: String
+  }
 }

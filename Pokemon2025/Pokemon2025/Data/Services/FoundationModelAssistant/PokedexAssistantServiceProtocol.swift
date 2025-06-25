@@ -15,4 +15,11 @@ protocol PokedexAssistantServiceProtocol {
   /// - Returns: A `PokemonInformation` object containing comprehensive information about the specified Pokémon.
   /// - Throws: An error if the information could not be retrieved.
   func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation
+
+  /// Performs any necessary setup or resource loading to prepare the service for use.
+  ///
+  /// This method can be called to warm up caches, load data, or perform other
+  /// initialization tasks in advance, reducing the latency of the first actual query.
+  /// It is safe to call multiple times; repeated calls should have no adverse effects.
+  func prewarm()
 }

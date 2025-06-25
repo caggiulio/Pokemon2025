@@ -39,4 +39,12 @@ struct FoundationModelPokedexAssistant {
   func getSession() -> LanguageModelSession {
     session
   }
+
+  /// Prewarms the underlying language model session to improve response latency.
+  ///
+  /// Calling this method initializes the session's resources before the first user interaction,
+  /// potentially resulting in faster replies when the session is later used for queries.
+  func prewarm() {
+    session.prewarm()
+  }
 }

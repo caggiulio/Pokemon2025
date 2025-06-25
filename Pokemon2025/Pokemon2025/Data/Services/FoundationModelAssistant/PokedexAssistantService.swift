@@ -25,10 +25,6 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
     pokedexAssistantService.getSession()
   }
 
-  /// Retrieves Pokedex information for the specified Pokémon using the language model.
-  /// - Parameter pokemon: The Pokémon for which to fetch information.
-  /// - Returns: A `PokemonInformation` object containing the detailed Pokedex entry for the given Pokémon.
-  /// - Throws: An error if the language model request fails.
   func getPokemonInformation(from pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation {
     guard pokedexAssistantService.isAvailable else {
       throw CustomError.pokedexAssistantNotAvailable
@@ -38,6 +34,10 @@ struct PokedexAssistantService: PokedexAssistantServiceProtocol {
       generating: Model.Foundation.PokemonInformation.self
     )
     return response.content
+  }
+
+  func prewarm() {
+    pokedexAssistantService.prewarm()
   }
 }
 

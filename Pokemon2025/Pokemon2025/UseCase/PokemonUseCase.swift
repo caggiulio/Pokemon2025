@@ -87,4 +87,19 @@ extension UseCase {
       pokemonRepository.clearPokedexInformation()
     }
   }
+
+  /// Use case for prewarming the Pokédex assistant service.
+  struct PrewarmPokedexAssistant {
+    /// The AI Assistant service that returns the Pokédex information.
+    @Injected(\.pokedexAssistanService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
+
+    /// Executes the prewarming routine for the Pokédex assistant service.
+    ///
+    /// This method invokes any preparatory methods within the assistant service to
+    /// ready internal models or state for faster subsequent use. Intended to be called
+    /// as a background operation to minimize user-perceived latency.
+    func execute() {
+      pokedexAssistanService.prewarm()
+    }
+  }
 }

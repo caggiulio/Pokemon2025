@@ -21,6 +21,9 @@ extension UI.Funnel.Details {
     /// The namespace for animation transitions.
     var animation: Namespace.ID
 
+    /// A Boolean state indicating whether the detailed Pokédex information is expanded and visible.
+    /// When set to `true`, the view displays additional descriptive content for the selected Pokémon.
+    /// This property is toggled automatically when new Pokédex data is loaded.
     @State private var isExpanded: Bool = false
 
     /// The `UI.Funnel.Details.ViewModel` managing the state and data for this view, including image URL and displayed name.
@@ -29,45 +32,74 @@ extension UI.Funnel.Details {
     // MARK: - Body
 
     var body: some SwiftUI.View {
-      EmptyView()
-        .ignoresSafeArea()
-        .animatedBackground()
-        .overlay {
-          VStack(spacing: .small) {
-            imageView(isBackground: false)
+      GeometryReader { geometry in
+        let imageSize = min(geometry.size.width, geometry.size.height) * 0.6
+        VStack(alignment: .center, spacing: .small) {
+          CachedAsyncImage(url: URL(string: viewModel.imageURL)) { image in
+            image
+              .resizable()
+              .frame(width: imageSize, height: imageSize)
+              .aspectRatio(contentMode: .fit)
+          } placeholder: {
+            Image(.pokeball)
+              .resizable()
+              .frame(width: imageSize, height: imageSize)
+              .aspectRatio(contentMode: .fit)
+          }
 
-            GlassEffectContainer(spacing: .medium) {
-              VStack(spacing: .small) {
-                Text(viewModel.name)
-                  .font(.title)
-                  .fontWeight(.bold)
-                  .foregroundStyle(.black)
-                  .padding()
-                  .glassEffect()
+          GlassEffectContainer(spacing: .medium) {
+            VStack(spacing: .small) {
+              Text(viewModel.name)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundStyle(.black)
+                .padding()
+                .glassEffect()
 
-                if isExpanded {
-                  Text(viewModel.readablePokedexInformation)
-                    .font(.body)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.black)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
-                    .glassEffectTransition(.matchedGeometry())
-                    .offset(y: -.medium)
-                }
-              }
+              Text(viewModel.readablePokedexInformation)
+                .font(.body)
+                .fontWeight(.medium)
+                .foregroundStyle(.black)
+                .multilineTextAlignment(.center)
+                .padding()
+                .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
+                .offset(y: isExpanded ? -.medium : (-.medium + -.small))
+                .frame(height: isExpanded ? nil : .zero)
+                .glassEffectTransition(.matchedGeometry)
             }
+            .padding(.horizontal, .small)
+          }
+
+          if viewModel.isExtraInformationGroupVisible {
+            Group {
+              Text(viewModel.readableKind)
+                .font(.body)
+                .fontWeight(.medium)
+                .foregroundStyle(.white)
+                .padding()
+                .transition(.opacity)
+                .glassEffect(.regular.tint(viewModel.colorType))
+
+              Button(viewModel.resetPokedexButtonTitle) {
+                viewModel.resetPokedexData()
+              }
+              .buttonStyle(.glass)
+              .transition(.opacity)
+            }
+            .padding(.bottom, .xSmall)
           }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        .animatedBackground()
         .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
         .loader(isShowing: viewModel.localState.isLoading)
         .onChange(of: viewModel.readablePokedexInformation) { _, newValue in
-          if !newValue.isEmpty {
-            isExpanded.toggle()
+          withAnimation(.spring(.bouncy)) {
+            isExpanded = !newValue.isEmpty
           }
         }
-        .animation(.smooth, value: isExpanded)
+        .animation(.spring(.bouncy), value: viewModel.isExtraInformationGroupVisible)
         .error(
           isShowing: viewModel.localState.isError,
           error: viewModel.localState.error,
@@ -76,67 +108,10 @@ extension UI.Funnel.Details {
         .toolbar {
           toolbar
         }
+      }
     }
 
     // MARK: - Subviews
-
-    /// Loads and displays an image asynchronously from a URL, or shows a fallback Pokéball image while loading.
-    /// - Parameters:
-    ///   - url: The URL string for the image.
-    ///   - width: The width of the image view.
-    ///   - height: The height of the image view.
-    ///   - aspect: The content mode for aspect ratio.
-    ///   - blur: The blur radius to apply to the image.
-    /// - Returns: A SwiftUI view displaying the image or a placeholder.
-    private func asyncPokeballImage(
-      url: String,
-      width: CGFloat,
-      height: CGFloat,
-      aspect: ContentMode,
-      blur: CGFloat
-    ) -> some SwiftUI.View {
-      CachedAsyncImage(url: URL(string: url)) { image in
-        image
-          .resizable()
-          .aspectRatio(contentMode: aspect)
-          .frame(width: width, height: height)
-          .clipped()
-      } placeholder: {
-        Image(.pokeball)
-          .resizable()
-          .aspectRatio(contentMode: aspect)
-          .frame(width: width, height: height)
-          .clipped()
-      }
-      .blur(radius: blur)
-    }
-
-    /// Builds the Pokémon image view, displaying either a blurred background or a sharp foreground image.
-    /// - Parameter isBackground: Whether to render as a background (blurred) or foreground (sharp) image.
-    /// - Returns: A SwiftUI view showing the Pokémon image with the appropriate style.
-    @ViewBuilder
-    func imageView(isBackground: Bool) -> some SwiftUI.View {
-      let blur = isBackground ? 15.0 : .zero
-      if isBackground {
-        GeometryReader { geometry in
-          asyncPokeballImage(
-            url: viewModel.imageURL,
-            width: geometry.size.width,
-            height: geometry.size.height,
-            aspect: .fill,
-            blur: blur
-          )
-        }
-      } else {
-        asyncPokeballImage(
-          url: viewModel.imageURL,
-          width: .xxLarge,
-          height: .xxLarge,
-          aspect: .fit,
-          blur: blur
-        )
-      }
-    }
 
     /// A toolbar content builder that provides a refresh button for fetching Pokédex information.
     ///
@@ -160,4 +135,10 @@ extension UI.Funnel.Details {
       }
     }
   }
+}
+
+#Preview("Details") {
+  @Previewable @Namespace var namespace
+
+  UI.Funnel.Details.View(transitionIdentifier: "", animation: namespace)
 }
