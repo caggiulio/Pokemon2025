@@ -58,33 +58,32 @@ extension UI.Funnel.Home {
     /// - Parameter pokemon: The Pokémon item to display in the cell.
     /// - Returns: A SwiftUI view representing the Pokémon cell.
     private func pokemonCell(for pokemon: Model.Entity.PokemonListItem) -> some SwiftUI.View {
-      ZStack {
-        VStack(spacing: .zero) {
-          CachedAsyncImage(url: URL(string: pokemon.imageURL)) { image in
-            image
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-          } placeholder: {
-            Image(.pokeball)
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-          }
-
-          Text(viewModel.name(for: pokemon))
-            .fontWeight(.bold)
-            .fontDesign(.rounded)
-            .foregroundStyle(.white)
-            .padding(.bottom, .small)
+      VStack(spacing: .zero) {
+        CachedAsyncImage(url: URL(string: pokemon.imageURL)) { image in
+          image
+            .resizable()
+        } placeholder: {
+          Image(.pokeball)
+            .resizable()
         }
+        .frame(width: .xLarge, height: .xLarge)
+        .clipped()
+
+        Text(viewModel.name(for: pokemon))
+          .fontWeight(.bold)
+          .fontDesign(.rounded)
+          .foregroundStyle(.white)
       }
-      .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
-      .matchedTransitionSource(id: viewModel.matchedTransitionIdentifier(for: pokemon), in: animation)
+      .frame(width: .xLarge + .medium, height: .xLarge + .medium)
+      .background {
+        Color.white.opacity(0.2)
+          .clipShape(RoundedRectangle(cornerRadius: .medium))
+      }
       .scrollTransition { view, phase in
         view
-          .scaleEffect(phase.isIdentity ? 1 : 0.85)
-          .blur(radius: phase.isIdentity ? .zero : .micro)
           .grayscale(phase.isIdentity ? .zero : 0.5)
       }
+      .matchedTransitionSource(id: viewModel.matchedTransitionIdentifier(for: pokemon), in: animation)
       .onAppear {
         if pokemon == viewModel.pokemons.last {
           Task {
