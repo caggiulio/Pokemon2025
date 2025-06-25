@@ -33,46 +33,41 @@ extension UI.Funnel.Details {
         .ignoresSafeArea()
         .animatedBackground()
         .overlay {
-          ScrollView {
-            VStack(spacing: .small) {
-              imageView(isBackground: false)
+          VStack(spacing: .small) {
+            imageView(isBackground: false)
 
-              Button() {
-                isExpanded.toggle()
-              } label: {
-                Image(systemName: !isExpanded ? "arrow.up" : "arrow.down")
-                  .padding(.small)
-              }
-              .buttonStyle(.glass)
-              .padding(.bottom, .small)
-              .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp)))
-              .foregroundStyle(.black)
-
-              if isExpanded {
+            GlassEffectContainer(spacing: .medium) {
+              VStack(spacing: .small) {
                 Text(viewModel.name)
                   .font(.title)
                   .fontWeight(.bold)
                   .foregroundStyle(.black)
                   .padding()
-                  .transition(.asymmetric(insertion: .scale, removal: .identity))
                   .glassEffect()
 
-                Text(viewModel.readablePokedexInformation)
-                  .font(.body)
-                  .fontWeight(.medium)
-                  .foregroundStyle(.black)
-                  .padding()
-                  .transition(.asymmetric(insertion: .scale, removal: .identity))
+                if isExpanded {
+                  Text(viewModel.readablePokedexInformation)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.black)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
+                    .glassEffectTransition(.matchedGeometry())
+                    .offset(y: -.medium)
+                }
               }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.top, !isExpanded ? .large : .zero)
-            .padding(.horizontal, !isExpanded ? .large : .medium)
-            .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
-            .animation(.smooth, value: isExpanded)
           }
         }
+        .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
         .loader(isShowing: viewModel.localState.isLoading)
+        .onChange(of: viewModel.readablePokedexInformation) { _, newValue in
+          if !newValue.isEmpty {
+            isExpanded.toggle()
+          }
+        }
+        .animation(.smooth, value: isExpanded)
         .error(
           isShowing: viewModel.localState.isError,
           error: viewModel.localState.error,
@@ -157,11 +152,11 @@ extension UI.Funnel.Details {
         Button {
           Task {
             try await viewModel.getPokedexInformation()
-            isExpanded = true
           }
         } label: {
-          Image(systemName: "waveform.circle")
+          Image(systemName: !viewModel.localState.isLoading.wrappedValue ? "waveform.circle" : "ellipsis")
         }
+        .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp)))
       }
     }
   }
