@@ -52,7 +52,7 @@ struct AnimatedBackgroundModifier: ViewModifier {
 
 extension View {
   /// Applies an animated linear gradient background that loops continuously.
-  func animatedBackground(colors: [Color] = [.red, .orange]) -> some View {
-    self.modifier(AnimatedBackgroundModifier(colors: colors))
+  func animatedBackground(colors: [Color]? = nil) -> some View {
+    self.modifier(AnimatedBackgroundModifier(colors: colors ?? [.red, .orange]))
   }
 }

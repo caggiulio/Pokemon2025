@@ -48,6 +48,7 @@ extension UI.Funnel.Splash {
               homeAssembler.view(for: destination)
             }
         }
+        .animatedBackground()
       }
     }
   }

@@ -60,6 +60,14 @@ extension UI.Funnel.Details {
 
     }
 
+    var backgroundColors: [Color]? {
+      guard let selectedPokemonPokedexInformation else {
+        return nil
+      }
+
+      return [colorType, colorType.opacity(0.4), colorType.opacity(0.2)]
+    }
+
     /// When extra information group is visible or not.
     var isExtraInformationGroupVisible: Bool {
       selectedPokemonPokedexInformation != nil

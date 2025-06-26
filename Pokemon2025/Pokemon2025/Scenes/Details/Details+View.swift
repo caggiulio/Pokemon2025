@@ -89,10 +89,10 @@ extension UI.Funnel.Details {
             .padding(.bottom, .xSmall)
           }
         }
+        .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
-        .animatedBackground()
-        .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
+        .animatedBackground(colors: viewModel.backgroundColors)
         .loader(isShowing: viewModel.localState.isLoading)
         .onChange(of: viewModel.readablePokedexInformation) { _, newValue in
           withAnimation(.spring(.bouncy)) {

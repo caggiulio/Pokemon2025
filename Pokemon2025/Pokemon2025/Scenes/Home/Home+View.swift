@@ -51,7 +51,6 @@ extension UI.Funnel.Home {
       }
       .navigationTitle(viewModel.navigationTitle)
       .loader(isShowing: viewModel.localState.isLoading)
-      .animatedBackground()
     }
 
     /// Creates a view representing a single Pokémon cell including its image and name.
