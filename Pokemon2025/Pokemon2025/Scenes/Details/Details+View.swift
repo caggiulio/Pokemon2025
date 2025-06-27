@@ -6,6 +6,7 @@
 //
 
 import CachedAsyncImage
+import Factory
 import SwiftUI
 
 /// Extension to provide the Details funnel views.
@@ -28,6 +29,11 @@ extension UI.Funnel.Details {
 
     /// The `UI.Funnel.Details.ViewModel` managing the state and data for this view, including image URL and displayed name.
     @StateObject private var viewModel = UI.Funnel.Details.ViewModel()
+
+    /// A reference to the app's navigation coordinator, injected using Factory's property wrapper.
+    /// The coordinator is responsible for managing navigation and flow control within the Stats UI,
+    /// enabling the ViewModel to trigger navigation actions without tightly coupling to the navigation logic.
+    @InjectedObject(\.coordinator) private var coordinator: Coordinator
 
     // MARK: - Body
 
@@ -88,6 +94,11 @@ extension UI.Funnel.Details {
             }
             .padding(.bottom, .xSmall)
           }
+
+          Button(viewModel.statsButtonTitle) {
+            coordinator.stats()
+          }
+          .buttonStyle(.glass)
         }
         .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -103,10 +114,14 @@ extension UI.Funnel.Details {
         .error(
           isShowing: viewModel.localState.isError,
           error: viewModel.localState.error,
-          confirmAction: viewModel.errorConfirmationIsTapped
+          confirmAction: viewModel.errorConfirmationTapped
         )
         .toolbar {
           toolbar
+        }
+        .sheet(isPresented: $coordinator.isStatsPresented) {
+          UI.Funnel.Details.Stats.View()
+            .presentationDetents([.medium])
         }
       }
     }

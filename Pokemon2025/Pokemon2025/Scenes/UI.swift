@@ -18,3 +18,7 @@ extension UI.Funnel {
 
   enum Details {}
 }
+
+extension UI.Funnel.Details {
+  enum Stats {}
+}

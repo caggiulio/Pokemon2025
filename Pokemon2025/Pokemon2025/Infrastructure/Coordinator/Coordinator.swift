@@ -14,6 +14,9 @@ class Coordinator: ObservableObject {
   /// When the home is presented or not.
   @Published var isHomePresented: Bool = false
 
+  /// When the stats is presented or not.
+  @Published var isStatsPresented: Bool = false
+
   /// Pop to root view.
   func popToRoot() {
     homePath.removeLast(homePath.count)
@@ -32,5 +35,10 @@ class Coordinator: ObservableObject {
   /// Push the details view.
   func details(transitionIdentifier: String, animation: Namespace.ID) {
     homePath.append(HomeDestinationLink.details(transitionIdentifier: transitionIdentifier, animation: animation))
+  }
+
+  /// Presents the `UI.Funnel.Details.Stats.View`.
+  func stats() {
+    isStatsPresented.toggle()
   }
 }

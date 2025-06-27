@@ -5,7 +5,7 @@
 //  Created by Nunzio Giulio Caggegi on 11/06/23.
 //
 
-import Foundation
+import Factory
 import SwiftUI
 
 /// Extension providing the ViewModel for the Details funnel in the UI.
@@ -17,6 +17,9 @@ extension UI.Funnel.Details {
 
     /// The title of the reset Pokedex button.
     let resetPokedexButtonTitle: String = "Reset Pokedex Data"
+
+    /// The title of the Stats button.
+    let statsButtonTitle: String = "Stats"
 
     // MARK: - Stored Properties
 
@@ -132,7 +135,7 @@ extension UI.Funnel.Details {
     }
 
     /// The `Interaction` called when the confirmation is tapped on error view.
-    func errorConfirmationIsTapped() {
+    func errorConfirmationTapped() {
       localState = .idle
     }
 
