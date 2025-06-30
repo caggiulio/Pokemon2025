@@ -17,6 +17,17 @@ extension UI.Funnel.Details.Stats {
 
     // MARK: - Body
 
-    var body: some SwiftUI.View {}
+    var body: some SwiftUI.View {
+      ScrollView(.vertical) {
+        ForEach(viewModel.stats) {
+          UI.Funnel.Details.Stats.Ability(model: $0)
+            .scrollTransition { view, phase in
+              view
+                .scaleEffect(phase.isIdentity ? 1 : 0.85)
+            }
+        }
+      }
+      .padding(.small)
+    }
   }
 }

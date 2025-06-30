@@ -9,7 +9,10 @@ import Foundation
 
 extension Model.Entity {
   /// Represents a Pokémon's individual stat, such as HP, Attack, etc.
-  struct Stat: PKMNModel {
+  struct Stat: PKMNModel, Identifiable {
+
+    var id: UUID = UUID()
+
     /// The name of the stat (e.g., HP, Attack).
     let name: String
     /// The base value of the stat.

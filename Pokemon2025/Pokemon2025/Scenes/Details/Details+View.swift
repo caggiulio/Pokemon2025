@@ -121,7 +121,7 @@ extension UI.Funnel.Details {
         }
         .sheet(isPresented: $coordinator.isStatsPresented) {
           UI.Funnel.Details.Stats.View()
-            .presentationDetents([.medium])
+            .presentationDetents([.fraction(0.65)])
         }
       }
     }
