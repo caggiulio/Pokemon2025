@@ -63,6 +63,7 @@ extension UI.Funnel.Details {
 
     }
 
+    /// The colors of the background when `selectedPokemonPokedexInformation` has a value.
     var backgroundColors: [Color]? {
       guard let _ = selectedPokemonPokedexInformation else {
         return nil
