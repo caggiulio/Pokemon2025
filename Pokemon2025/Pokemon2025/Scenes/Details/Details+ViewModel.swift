@@ -157,7 +157,7 @@ extension UI.Funnel.Details {
     /// responsiveness of Pokédex-related features when the user requests information.
     ///
     /// - Note: This method is typically called proactively, before Pokédex details are needed, to ensure a smoother user experience.
-    func prewarmPokedexAssistant() {
+    private func prewarmPokedexAssistant() {
       UseCase.PrewarmPokedexAssistant().execute()
     }
   }
