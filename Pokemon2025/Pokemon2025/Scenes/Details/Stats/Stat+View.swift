@@ -21,7 +21,7 @@ extension UI.Funnel.Details.Stats {
     // MARK: - Stored Properties
 
     /// The model for the single `Ability`.
-    let model: Model.Entity.Stat
+    private let model: Model.Entity.Stat
 
     /// The value of the `ProgressView`. Initially is `.zero` to animate the `View`.
     @State private var progress: Float = .zero
