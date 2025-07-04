@@ -6,7 +6,6 @@
 //
 
 import CachedAsyncImage
-import Factory
 import SwiftUI
 
 extension UI.Funnel.Home {
