@@ -4,7 +4,6 @@
 //
 
 import Combine
-import Factory
 import SwiftUI
 
 open class MystiqueViewModel<Model: CustomModel>: ObservableObject {

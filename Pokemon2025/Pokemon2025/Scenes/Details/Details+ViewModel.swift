@@ -5,7 +5,6 @@
 //  Created by Nunzio Giulio Caggegi on 11/06/23.
 //
 
-import Factory
 import SwiftUI
 
 /// Extension providing the ViewModel for the Details funnel in the UI.

@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Factory
 import Foundation
 import SwiftUI
 
@@ -38,16 +37,23 @@ extension UI.Funnel.Home {
     /// including loading, success, and failure states used to update the UI.
     @Published private(set) var localState: LocalState<Empty, Error> = .idle
 
-    /// A reference to the app's navigation coordinator, injected using Factory's property wrapper.
-    /// The coordinator is responsible for managing navigation and flow control within the Home UI,
-    /// enabling the ViewModel to trigger navigation actions without tightly coupling to the navigation logic.
-    @Injected(\.coordinator) private var coordinator: Coordinator
-
     /// Holds the full unfiltered list of Pokémon items.
     private var allPokemons: [Model.Entity.PokemonListItem] = []
 
     /// A set used to store Combine's `AnyCancellable` instances.
     private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - Computed Properties
+
+    /// A user-friendly string displaying the current count of Pokémon found based on the applied filters.
+    var readableCountNumber: String {
+      searchString.isEmpty ? "Total Pokemon Loaded: \(pokemons.count)" : "Found: \(pokemons.count)"
+    }
+
+    /// A Boolean value indicating whether the accessory view should be visible in the UI.
+    var isAccessoryViewVisible: Bool {
+      isSearching
+    }
 
     // MARK: - Init
 

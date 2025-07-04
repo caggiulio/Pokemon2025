@@ -6,7 +6,6 @@
 //
 
 import CachedAsyncImage
-import Factory
 import SwiftUI
 
 extension UI.Funnel.Home {
@@ -30,8 +29,36 @@ extension UI.Funnel.Home {
         }
         .searchable(text: $viewModel.searchString)
       }
+      .safeAreaInset(edge: .bottom) {
+        accessoryView
+      }
+      .animation(.smooth, value: viewModel.isSearching)
+      .animation(.smooth, value: viewModel.pokemons.count)
       .navigationTitle(viewModel.navigationTitle)
       .loader(isShowing: viewModel.localState.isLoading)
+    }
+
+    // MARK: - Subviews
+
+    /// A computed property that returns an optional accessory view for the Home screen.
+    ///
+    /// This view is conditionally displayed at the bottom of the screen when
+    /// `viewModel.isAccessoryViewVisible` is `true`. It presents a styled and animated
+    /// count summary using `viewModel.readableCountNumber`, applies headline font,
+    /// custom transitions, a glass effect, and insets. The accessory view occupies
+    /// the width of the parent and is inset horizontally and from the bottom.
+    @ViewBuilder
+    private var accessoryView: some SwiftUI.View {
+      if viewModel.isAccessoryViewVisible {
+        Text(viewModel.readableCountNumber)
+          .font(.headline)
+          .transition(.blurReplace)
+          .contentTransition(.numericText())
+          .frame(maxWidth: .infinity, maxHeight: .large - .xSmall)
+          .glassEffect()
+          .padding(.horizontal)
+          .padding(.bottom, .xSmall)
+      }
     }
   }
 }
@@ -39,6 +66,7 @@ extension UI.Funnel.Home {
 #Preview("Home") {
   NavigationStack {
     UI.Funnel.Home.View()
+      .animatedBackground()
       .onAppear {
         Task {
           try await UseCase.FetchPokemonList().execute()
