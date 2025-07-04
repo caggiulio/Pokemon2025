@@ -43,6 +43,12 @@ extension UI.Funnel.Home {
     /// A set used to store Combine's `AnyCancellable` instances.
     private var cancellables: Set<AnyCancellable> = []
 
+    // MARK: - Computed Properties
+
+    var readableCountNumber: String {
+      "Found: \(pokemons.count)"
+    }
+
     // MARK: - Init
 
     /// Initializes a new instance of the Home ViewModel.

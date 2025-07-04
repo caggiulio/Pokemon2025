@@ -78,3 +78,20 @@ extension UI.Funnel.Home.View.List {
     }
   }
 }
+
+#Preview("Cell") {
+  @Previewable @Namespace var namespace
+
+  UI.Funnel.Home.View.List.Cell(
+    pokemon: Model.Entity.PokemonListItem(
+      name: "Bulbasaur",
+      imageURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+      id: "1",
+      ranking: "1"
+    ),
+    animation: namespace,
+    onTapInteraction: nil
+  )
+  .padding(.medium)
+  .animatedBackground()
+}

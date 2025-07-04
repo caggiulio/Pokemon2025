@@ -29,6 +29,20 @@ extension UI.Funnel.Home {
         }
         .searchable(text: $viewModel.searchString)
       }
+      .safeAreaInset(edge: .bottom) {
+        if viewModel.isSearching {
+          Text(viewModel.readableCountNumber)
+            .font(.headline)
+            .transition(.blurReplace)
+            .contentTransition(.numericText())
+            .frame(maxWidth: .infinity, maxHeight: .large - .xSmall)
+            .glassEffect()
+            .padding(.horizontal)
+            .padding(.bottom, .xSmall)
+        }
+      }
+      .animation(.smooth, value: viewModel.isSearching)
+      .animation(.smooth, value: viewModel.pokemons.count)
       .navigationTitle(viewModel.navigationTitle)
       .loader(isShowing: viewModel.localState.isLoading)
     }
@@ -38,6 +52,7 @@ extension UI.Funnel.Home {
 #Preview("Home") {
   NavigationStack {
     UI.Funnel.Home.View()
+      .animatedBackground()
       .onAppear {
         Task {
           try await UseCase.FetchPokemonList().execute()
