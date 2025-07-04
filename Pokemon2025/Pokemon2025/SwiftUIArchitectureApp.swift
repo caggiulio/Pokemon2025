@@ -19,9 +19,21 @@ struct SwiftUIArchitectureApp: App {
   /// The responsible of the assemble of the `View` used to assemble a view for navigation.
   @Injected(\.mainAssembler) var mainAssembler: Assembler.Main
 
+  /// The home assembler.
+  @Injected(\.homeAssembler) var homeAssembler: Assembler.Home
+
   var body: some Scene {
     WindowGroup {
       mainAssembler.view(for: .splash)
+        .fullScreenCover(isPresented: $coordinator.isHomePresented) {
+          NavigationStack(path: $coordinator.homePath) {
+            mainAssembler.view(for: .home)
+              .navigationDestination(for: HomeDestinationLink.self) { destination in
+                homeAssembler.view(for: destination)
+              }
+          }
+          .animatedBackground()
+        }
     }
   }
 }

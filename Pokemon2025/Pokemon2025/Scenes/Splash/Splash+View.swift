@@ -16,15 +16,6 @@ extension UI.Funnel.Splash {
     /// The `UI.Funnel.Splash.ViewModel` of the view.
     @StateObject var viewModel = UI.Funnel.Splash.ViewModel()
 
-    /// The app coordinator.
-    @InjectedObject(\.coordinator) var coordinator: Coordinator
-
-    /// The app assembler.
-    @Injected(\.mainAssembler) var mainAssembler: Assembler.Main
-
-    /// The home assembler.
-    @Injected(\.homeAssembler) var homeAssembler: Assembler.Home
-
     // MARK: - View
 
     var body: some SwiftUI.View {
@@ -40,15 +31,6 @@ extension UI.Funnel.Splash {
       }
       .onAppear {
         viewModel.didAppear()
-      }
-      .fullScreenCover(isPresented: $coordinator.isHomePresented) {
-        NavigationStack(path: $coordinator.homePath) {
-          mainAssembler.view(for: .home)
-            .navigationDestination(for: HomeDestinationLink.self) { destination in
-              homeAssembler.view(for: destination)
-            }
-        }
-        .animatedBackground()
       }
     }
   }
