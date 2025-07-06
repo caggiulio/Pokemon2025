@@ -40,69 +40,21 @@ extension UI.Funnel.Details {
     var body: some SwiftUI.View {
       GeometryReader { geometry in
         let imageSize = min(geometry.size.width, geometry.size.height) * 0.6
-        VStack(alignment: .center, spacing: .small) {
-          CachedAsyncImage(url: URL(string: viewModel.imageURL)) { image in
-            image
-              .resizable()
-              .frame(width: imageSize, height: imageSize)
-              .aspectRatio(contentMode: .fit)
-          } placeholder: {
-            Image(.pokeball)
-              .resizable()
-              .frame(width: imageSize, height: imageSize)
-              .aspectRatio(contentMode: .fit)
+        ScrollView {
+          if !isExpanded {
+            normalView(imageSize: imageSize)
+          } else {
+            expandedView(imageSize: imageSize)
           }
 
-          GlassEffectContainer(spacing: .medium) {
-            VStack(spacing: .small) {
-              Text(viewModel.name)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundStyle(.white)
-                .padding()
-                .glassEffect()
-
-              Text(viewModel.readablePokedexInformation)
-                .font(.body)
-                .fontWeight(.medium)
-                .foregroundStyle(.white)
-                .multilineTextAlignment(.center)
-                .padding()
-                .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
-                .offset(y: isExpanded ? -.medium : (-.medium + -.small))
-                .frame(height: isExpanded ? nil : .zero)
-                .glassEffectTransition(.matchedGeometry)
-            }
-            .padding(.horizontal, .small)
+          VStack(spacing: .zero) {
+            extraInformation
           }
-
-          if viewModel.isExtraInformationGroupVisible {
-            Group {
-              Text(viewModel.readableKind)
-                .font(.body)
-                .fontWeight(.medium)
-                .foregroundStyle(.white)
-                .padding()
-                .transition(.opacity)
-                .glassEffect(.regular.tint(viewModel.colorType))
-
-              Button(viewModel.resetPokedexButtonTitle) {
-                viewModel.resetPokedexData()
-              }
-              .buttonStyle(.glass)
-              .transition(.opacity)
-            }
-            .padding(.bottom, .xSmall)
-          }
-
-          Button(viewModel.statsButtonTitle) {
-            coordinator.stats()
-          }
-          .buttonStyle(.glass)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+          .ignoresSafeArea()
         }
+        .defaultScrollAnchor(.center, for: .alignment)
         .navigationTransition(.zoom(sourceID: transitionIdentifier, in: animation))
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
         .animatedBackground(colors: viewModel.backgroundColors)
         .loader(isShowing: viewModel.localState.isLoading)
         .onChange(of: viewModel.readablePokedexInformation) { _, newValue in
@@ -128,14 +80,163 @@ extension UI.Funnel.Details {
 
     // MARK: - Subviews
 
-    /// A toolbar content builder that provides a refresh button for fetching Pokédex information.
+    /// Returns a SwiftUI view representing the "normal" (collapsed) state of the Details view.
     ///
-    /// This toolbar contains a single button, represented by a waveform circle system image.
-    /// When tapped, it asynchronously invokes the `getPokedexInformation()` method on the view model to update or fetch
-    /// the latest Pokédex information for the displayed Pokémon. The button is placed as a toolbar item within the view.
+    /// - Parameter imageSize: The target width and height for the Pokémon image displayed in the view.
+    /// - Returns: A SwiftUI view displaying the Pokémon's name and image, styled with a translucent, rounded rectangle background.
+    private func normalView(imageSize: CGFloat) -> some SwiftUI.View {
+      VStack(spacing: .zero) {
+        nameView
+          .matchedGeometryEffect(id: "name", in: animation, isSource: true)
+          .padding(.top, .xSmall)
+
+        imageView(imageSize: imageSize)
+      }
+      .background {
+        Color.white.opacity(0.5)
+          .clipShape(RoundedRectangle(cornerRadius: .medium))
+      }
+    }
+
+    /// Returns a SwiftUI view representing the "expanded" (collapsed) state of the Details view.
     ///
-    /// - Note: The button's action is performed within a Swift concurrency `Task`, allowing it to call the async method.
-    /// - Returns: The toolbar content for the view, including the Pokédex refresh button.
+    /// - Parameter imageSize: The target width and height for the Pokémon image displayed in the view.
+    /// - Returns: A SwiftUI view displaying the Pokémon's name and image, styled with a translucent, rounded rectangle background.
+    private func expandedView(imageSize: CGFloat) -> some SwiftUI.View {
+      GlassEffectContainer(spacing: .medium) {
+        VStack(spacing: .small) {
+          imageView(imageSize: imageSize)
+            .background {
+              Color.white.opacity(0.5)
+                .clipShape(RoundedRectangle(cornerRadius: .medium))
+            }
+
+          nameView
+            .matchedGeometryEffect(id: "name", in: animation)
+
+          Text(viewModel.readablePokedexInformation)
+            .font(.body)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .multilineTextAlignment(.center)
+            .padding()
+            .glassEffect(in: RoundedRectangle(cornerRadius: .medium))
+            .offset(y: isExpanded ? -.medium : (-.medium + -.small))
+            .frame(height: isExpanded ? nil : .zero)
+            .glassEffectTransition(.matchedGeometry)
+        }
+        .padding(.horizontal, .small)
+      }
+    }
+
+    /// A computed property that returns a SwiftUI view displaying the Pokémon's name with styled appearance.
+    /// This component is used in both the normal and expanded details layouts,
+    /// often in conjunction with matched geometry effects for animated transitions.
+    private var nameView: some SwiftUI.View {
+      Text(viewModel.name)
+        .font(.title2)
+        .fontWeight(.bold)
+        .foregroundStyle(.white)
+        .padding()
+        .glassEffect()
+    }
+
+    /// Returns a SwiftUI view that displays the Pokémon's image using a cached asynchronous image loader.
+    /// - Parameter imageSize: The size (width and height) for the image view.
+    /// - Returns: A SwiftUI view that displays the Pokémon's image if available, or a Pokéball placeholder otherwise.
+    ///
+    /// The image is loaded asynchronously from `viewModel.imageURL` and is displayed with a consistent aspect ratio and rounded corners.
+    /// If the image URL is unavailable or loading fails, a Pokéball placeholder image is shown instead.
+    /// The image view is visually decorated with a translucent white background and rounded rectangle clipping,
+    /// and includes a navigation transition effect for animated transitions between views.
+    ///
+    private func imageView(imageSize: CGFloat) -> some SwiftUI.View {
+      CachedAsyncImage(url: URL(string: viewModel.imageURL)) { image in
+        image
+          .resizable()
+          .frame(width: imageSize, height: imageSize)
+          .aspectRatio(contentMode: .fit)
+      } placeholder: {
+        Image(.pokeball)
+          .resizable()
+          .frame(width: imageSize, height: imageSize)
+          .aspectRatio(contentMode: .fit)
+      }
+    }
+
+    /// A computed property that returns a SwiftUI view displaying Pokédex-specific attributes for the selected Pokémon.
+    ///
+    /// This view presents the Pokémon's height, weight, and base experience in a vertically-stacked arrangement,
+    /// separated by dividers for clarity. All text is styled with a caption font and black foreground color.
+    /// The view uses consistent spacing and padding for a compact, readable display of core Pokédex data.
+    ///
+    /// - Returns: A view showing the height, weight, and base experience with visual separation.
+    private var pokedexInformation: some SwiftUI.View {
+      VStack(spacing: .xSmall) {
+        Group {
+          Text(viewModel.height)
+
+          Divider()
+            .foregroundStyle(.black)
+            .frame(maxWidth: .large)
+
+          Text(viewModel.weight)
+
+          Divider()
+            .foregroundStyle(.black)
+            .frame(maxWidth: .large)
+
+          Text(viewModel.baseExperience)
+        }
+        .padding(.bottom, .xSmall)
+        .font(.caption)
+        .foregroundStyle(.black)
+      }
+    }
+
+    /// A computed property that returns a SwiftUI view presenting additional details and actions for the selected Pokémon.
+    ///
+    /// This view displays context-sensitive, supplementary information and action buttons:
+    /// - If `viewModel.isExtraInformationGroupVisible` is `true`, it shows:
+    ///   - The Pokémon's type or kind information (`viewModel.readableKind`), styled with a glass effect and animated opacity transition.
+    ///   - A button to reset Pokédex data (`viewModel.resetPokedexButtonTitle`), which triggers `viewModel.resetPokedexData()`, styled with a glass button style.
+    ///   - These elements are grouped and padded at the bottom for visual clarity.
+    /// - Below, regardless of state, a "Stats" button (`viewModel.statsButtonTitle`) is presented, which invokes the `coordinator.stats()` action when tapped, also styled with a glass effect.
+    ///
+    /// The view uses smooth transitions and glass-style presentation for a polished, interactive experience.
+    @ViewBuilder
+    private var extraInformation: some SwiftUI.View {
+      if viewModel.isExtraInformationGroupVisible {
+        Group {
+          Text(viewModel.readableKind)
+            .font(.body)
+            .fontWeight(.medium)
+            .foregroundStyle(.white)
+            .padding()
+            .transition(.opacity)
+            .glassEffect(.regular.tint(viewModel.colorType))
+
+          Button(viewModel.resetPokedexButtonTitle) {
+            viewModel.resetPokedexData()
+          }
+          .buttonStyle(.glass)
+          .transition(.opacity)
+        }
+        .padding(.bottom, .xSmall)
+      }
+    }
+
+    /// A computed toolbar property that provides context-sensitive navigation and action buttons for the Pokémon details view.
+    ///
+    /// The toolbar contains two items:
+    /// - A button to refresh or fetch Pokédex information:
+    ///   - Tapping this button launches an asynchronous task to call `viewModel.getPokedexInformation()`.
+    ///   - The button icon shows a waveform symbol when not loading, and an ellipsis while loading, with a symbol effect transition for visual feedback.
+    /// - A button to present or dismiss the Pokémon stats sheet:
+    ///   - Tapping this button triggers the `coordinator.stats()` action, toggling the stats sheet presentation.
+    ///   - The button icon switches between a heart text square (when the stats sheet is not presented) and an "x" mark (when it is), also using a symbol effect transition.
+    ///
+    /// This toolbar integrates seamlessly with the view model and navigation coordinator, providing immediate, animated controls for primary user actions in the details view.
     @ToolbarContentBuilder
     var toolbar: some ToolbarContent {
       ToolbarItem {
@@ -145,6 +246,15 @@ extension UI.Funnel.Details {
           }
         } label: {
           Image(systemName: !viewModel.localState.isLoading.wrappedValue ? "waveform.circle" : "ellipsis")
+        }
+        .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp)))
+      }
+
+      ToolbarItem {
+        Button {
+          coordinator.stats()
+        } label: {
+          Image(systemName: !coordinator.isStatsPresented ? "heart.text.square.fill" : "xmark.circle")
         }
         .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp)))
       }

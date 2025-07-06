@@ -17,9 +17,6 @@ extension UI.Funnel.Details {
     /// The title of the reset Pokedex button.
     let resetPokedexButtonTitle: String = "Reset Pokedex Data"
 
-    /// The title of the Stats button.
-    let statsButtonTitle: String = "Stats"
-
     // MARK: - Stored Properties
 
     /// Represents the currently selected Pokémon for the detail view.
@@ -51,6 +48,21 @@ extension UI.Funnel.Details {
     /// The readable kind of Pokemon.
     var readableKind: String {
       selectedPokemonPokedexInformation?.types.map { $0 }.joined(separator: ", ") ?? ""
+    }
+
+    /// Returns the formatted height of the selected Pokémon as a string, or an empty string if no Pokémon is selected.
+    var height: String {
+      "Height: \(selectedPokemon?.height.formatted() ?? "")"
+    }
+
+    /// Returns the formatted weight of the selected Pokémon as a string, or an empty string if no Pokémon is selected.
+    var weight: String {
+      "Weight: \(selectedPokemon?.weight.formatted() ?? "")"
+    }
+
+    /// Returns the formatted base experience of the selected Pokémon as a string, or an empty string if no Pokémon is selected.
+    var baseExperience: String {
+      "Base XP: \(selectedPokemon?.baseExperience.formatted() ?? "")"
     }
 
     /// The color of type of Pokemon.
