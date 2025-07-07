@@ -17,7 +17,7 @@ extension Repository {
     @Injected(\.stateContainer) private var stateContainer: StateContainer
 
     /// The AI Assistant servicethat returns the Pokedex information.
-    @Injected(\.pokedexAssistanService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
+    @Injected(\.pokedexAssistantService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
 
     func getPokemon(identifier: String) async throws {
       let pokemon = try await pokemonService.getPokemon(id: identifier)

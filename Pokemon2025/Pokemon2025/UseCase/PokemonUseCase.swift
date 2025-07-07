@@ -91,7 +91,7 @@ extension UseCase {
   /// Use case for prewarming the Pokédex assistant service.
   struct PrewarmPokedexAssistant {
     /// The AI Assistant service that returns the Pokédex information.
-    @Injected(\.pokedexAssistanService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
+    @Injected(\.pokedexAssistantService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
 
     /// Executes the prewarming routine for the Pokédex assistant service.
     ///
