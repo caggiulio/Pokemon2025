@@ -78,7 +78,7 @@ extension UI.Funnel.Home {
     /// Updates the ViewModel state based on the given `AppState`.
     /// This method is called whenever the global app state changes,
     /// refreshing the local list of Pokémon accordingly.
-    override func update(state: AppState) {
+    override func update(state: AppStateable) {
       super.update(state: state)
 
       let items = state.pokemonList.pokemonList?.pokemonItems ?? []

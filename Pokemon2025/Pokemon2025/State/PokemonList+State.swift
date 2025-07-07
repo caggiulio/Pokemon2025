@@ -6,7 +6,7 @@
 //
 
 /// Represents the state for the Pokemon list view, holding the current list of Pokemon (if loaded).
-struct PokemonListState {
+public struct PokemonListState {
   /// The current list of Pokemon fetched from the data source. Nil if not yet loaded or on error.
   var pokemonList: Model.Entity.PokemonList?
 }

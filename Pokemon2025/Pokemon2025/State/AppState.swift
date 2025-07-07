@@ -4,11 +4,13 @@
 
 import Foundation
 
-/// The App state in which every current session information is stored. Is used only to store data.
-public struct AppState {
-  /// The `PokemonDetail` state.
-  var pokemonDetail = PokemonDetail()
+public struct AppState: AppStateable {
+  public var pokemonDetail = PokemonDetail()
 
-  /// The `PokemonListState` state.
-  var pokemonList = PokemonListState()
+  public var pokemonList = PokemonListState()
+
+  public mutating func reset() {
+    pokemonDetail = PokemonDetail()
+    pokemonList = PokemonListState()
+  }
 }

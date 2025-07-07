@@ -28,7 +28,7 @@ extension UI.Funnel.Details.Stats {
     ///
     /// - Parameter state: The current application state.
     /// Updates the `stats` array with the stats of the selected Pokémon.
-    override func update(state: AppState) {
+    override func update(state: AppStateable) {
       super.update(state: state)
 
       stats = state.pokemonDetail.selectedPokemon?.stats ?? []

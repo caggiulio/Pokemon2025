@@ -12,8 +12,11 @@ extension Container {
   }
 
   var stateContainer: Factory<StateContainer> {
-    self { StateContainer() }
+    self { StateContainer(state: self.appState.resolve()) }
       .scope(.cached)
+      .onPreview {
+        StateContainer(state: AppStateMock())
+      }
   }
 
   var coordinator: Factory<Coordinator> {
@@ -51,6 +54,11 @@ extension Container {
 
   var pokedexAssistanService: Factory<PokedexAssistantServiceProtocol> {
     self { PokedexAssistantService() }
+      .scope(.cached)
+  }
+
+  private var appState: Factory<AppStateable> {
+    self { AppState() }
       .scope(.cached)
   }
 }

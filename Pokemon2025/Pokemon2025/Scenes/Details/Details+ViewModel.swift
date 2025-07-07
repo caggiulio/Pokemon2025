@@ -112,7 +112,7 @@ extension UI.Funnel.Details {
     /// then updates the local state to reflect any changes.
     ///
     /// - Parameter state: The latest `AppState` containing updated application data.
-    override func update(state: AppState) {
+    override func update(state: AppStateable) {
       super.update(state: state)
 
       selectedPokemon = state.pokemonDetail.selectedPokemon
