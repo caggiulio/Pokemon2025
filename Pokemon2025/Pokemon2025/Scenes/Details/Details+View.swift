@@ -91,6 +91,8 @@ extension UI.Funnel.Details {
           .padding(.top, .xSmall)
 
         imageView(imageSize: imageSize)
+
+        pokedexInformation
       }
       .background {
         Color.white.opacity(0.5)
@@ -105,11 +107,15 @@ extension UI.Funnel.Details {
     private func expandedView(imageSize: CGFloat) -> some SwiftUI.View {
       GlassEffectContainer(spacing: .medium) {
         VStack(spacing: .small) {
-          imageView(imageSize: imageSize)
-            .background {
-              Color.white.opacity(0.5)
-                .clipShape(RoundedRectangle(cornerRadius: .medium))
-            }
+          VStack(spacing: .zero) {
+            imageView(imageSize: imageSize)
+
+            pokedexInformation
+          }
+          .background {
+            Color.white.opacity(0.5)
+              .clipShape(RoundedRectangle(cornerRadius: .medium))
+          }
 
           nameView
             .matchedGeometryEffect(id: "name", in: animation)
@@ -265,5 +271,7 @@ extension UI.Funnel.Details {
 #Preview("Details") {
   @Previewable @Namespace var namespace
 
-  UI.Funnel.Details.View(transitionIdentifier: "", animation: namespace)
+  NavigationStack {
+    UI.Funnel.Details.View(transitionIdentifier: "", animation: namespace)
+  }
 }

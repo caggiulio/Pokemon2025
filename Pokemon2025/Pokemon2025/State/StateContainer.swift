@@ -13,7 +13,7 @@ public class StateContainer: ObservableObject {
   @Published var state: AppStateable
 
   // MARK: - Init
-  
+
   /// The init of the `StateContainer` object.
   /// - Parameter state: The App state in which every current session information is stored. Is used only to store data.
   init(state: AppStateable) {

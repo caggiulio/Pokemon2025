@@ -55,6 +55,9 @@ extension Container {
   var pokedexAssistanService: Factory<PokedexAssistantServiceProtocol> {
     self { PokedexAssistantService() }
       .scope(.cached)
+      .onPreview {
+        PokedexAssistanteServiceMock()
+      }
   }
 
   private var appState: Factory<AppStateable> {
