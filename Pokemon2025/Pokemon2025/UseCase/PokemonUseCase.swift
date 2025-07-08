@@ -31,14 +31,6 @@ extension UseCase {
     func execute(identifier: String) async throws {
       try await pokemonRepository.getPokemon(identifier: identifier)
     }
-
-    /// Fetches a random Pokémon in the range 1...150.
-    /// - Throws: Rethrows errors from the Pokémon repository.
-    /// - Returns: A randomly selected Pokémon.
-    func execute() async throws {
-      let identifier = Int.random(in: 1...150).formatted()
-      try await pokemonRepository.getPokemon(identifier: identifier)
-    }
   }
 
   /// Fetches the list of Pokémon.
