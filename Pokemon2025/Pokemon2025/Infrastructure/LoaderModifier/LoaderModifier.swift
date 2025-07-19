@@ -44,7 +44,7 @@ struct LoaderModifier: ViewModifier {
               }
               .padding(.medium)
           }
-          .glassEffect()
+          .glassEffect(.clear)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .background(.black.opacity(0.3))
           .ignoresSafeArea()
