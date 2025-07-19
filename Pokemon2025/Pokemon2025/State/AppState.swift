@@ -4,13 +4,22 @@
 
 import Foundation
 
+/// Represents the global state of the application, containing all app-wide state data.
 public struct AppState: AppStateable {
-  public var pokemonDetail = PokemonDetail()
+  
+    // MARK: - Stored DraProperties
+  
+    /// The state associated with the currently selected Pokémon's detail view.
+    public var pokemonDetail = PokemonDetail()
 
-  public var pokemonList = PokemonListState()
+    /// The state for the Pokémon list view, containing all loaded Pokémon.
+    public var pokemonList = PokemonListState()
 
-  public mutating func reset() {
-    pokemonDetail = PokemonDetail()
-    pokemonList = PokemonListState()
-  }
+    // MARK: - Methods
+  
+    /// Resets all state to their initial values.
+    public mutating func reset() {
+        pokemonDetail = PokemonDetail()
+        pokemonList = PokemonListState()
+    }
 }

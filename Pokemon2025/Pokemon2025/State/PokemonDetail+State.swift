@@ -9,6 +9,9 @@ import Foundation
 
 /// The state in which the Pokemon detail information will stored.
 public struct PokemonDetail {
+  
+  // MARK: - Stored Properties
+  
   /// The selected Pokemon.
   var selectedPokemon: Model.Entity.Pokemon?
 
