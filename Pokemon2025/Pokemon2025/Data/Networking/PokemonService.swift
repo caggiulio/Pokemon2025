@@ -18,7 +18,7 @@ struct PokemonService: PokemonServiceProtocol {
   /// The networking object.
   @Injected(\.networking) private var networking: Networking
 
-  // MARK: - Functions
+  // MARK: - PokemonServiceProtocol
 
   func getPokemon(id: String) async throws -> Model.Entity.Pokemon {
     let request = HTTPRequest {
