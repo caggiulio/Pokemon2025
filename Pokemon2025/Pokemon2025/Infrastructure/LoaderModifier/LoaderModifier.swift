@@ -37,14 +37,14 @@ struct LoaderModifier: ViewModifier {
                   )
               } animation: { phase in
                 switch phase {
-                case .start: .bouncy(duration: 0.5, extraBounce: 0.35)
-                case .middle: .spring(duration: 0.3, bounce: 0.25)
-                case .end: .smooth(duration: 0.5, extraBounce: 0.85)
+                case .start: .bouncy(duration: 0.8, extraBounce: 0.35)
+                case .middle: .spring(duration: 0.4, bounce: 0.25)
+                case .end: .smooth(duration: 0.6, extraBounce: 0.85)
                 }
               }
               .padding(.medium)
           }
-          .glassEffect()
+          .glassEffect(.clear)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .background(.black.opacity(0.3))
           .ignoresSafeArea()
