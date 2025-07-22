@@ -13,46 +13,19 @@ extension Repository {
     /// This is the implementation of `NetworkDataSourceProtocol`
     @Injected(\.pokemonService) private var pokemonService: PokemonServiceProtocol
 
-    /// The `AppState`.
-    @Injected(\.stateContainer) private var stateContainer: StateContainer
-
     /// The AI Assistant servicethat returns the Pokedex information.
     @Injected(\.pokedexAssistantService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
 
-    func getPokemon(identifier: String) async throws {
-      let pokemon = try await pokemonService.getPokemon(id: identifier)
-      stateContainer.state.pokemonDetail.selectedPokemon = pokemon
+    func getPokemon(identifier: String) async throws -> Model.Entity.Pokemon {
+      return try await pokemonService.getPokemon(id: identifier)
     }
 
-    func fetchPokemonList() async throws {
-      let pokemonList = try await pokemonService.getPokemonList(
-        next: stateContainer.state.pokemonList.pokemonList?.next
-      )
-      if let pokemonListState = stateContainer.state.pokemonList.pokemonList,
-        pokemonListState.pokemonItems.allSatisfy({ pokemon in
-          pokemonList.pokemonItems.contains { $0 == pokemon }
-        })
-      {
-        return
-      }
-      var pokemonItems = stateContainer.state.pokemonList.pokemonList?.pokemonItems ?? []
-      pokemonItems += pokemonList.pokemonItems
-      let newPokemonList = Model.Entity.PokemonList(
-        count: pokemonList.count,
-        next: pokemonList.next,
-        pokemonItems: pokemonItems
-      )
-
-      stateContainer.state.pokemonList.pokemonList = newPokemonList
+    func fetchPokemonList(next: String?) async throws -> Model.Entity.PokemonList {
+      return try await pokemonService.getPokemonList(next: next)
     }
 
-    func getPokedexInformation(for pokemon: Model.Entity.Pokemon) async throws {
-      let pokedexInformation = try await pokedexAssistanService.getPokemonInformation(from: pokemon)
-      stateContainer.state.pokemonDetail.pokedexInformation = pokedexInformation
-    }
-
-    func clearPokedexInformation() {
-      stateContainer.state.pokemonDetail.pokedexInformation = nil
+    func getPokedexInformation(for pokemon: Model.Entity.Pokemon) async throws -> Model.Foundation.PokemonInformation {
+      return try await pokedexAssistanService.getPokemonInformation(from: pokemon)
     }
   }
 }

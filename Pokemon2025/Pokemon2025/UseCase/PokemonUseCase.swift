@@ -15,21 +15,25 @@ extension UseCase {
     /// The Pokémon repository dependency.
     @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
 
+    /// The `AppState`.
+    @Injected(\.stateContainer) private var stateContainer: StateContainer
+
     /// Fetches a Pokémon by integer identifier after formatting it for HTTP.
     /// - Parameter identifier: The integer identifier of the Pokémon.
     /// - Throws: Rethrows errors from the Pokémon repository.
-    /// - Returns: The Pokémon corresponding to the given identifier.
     func execute(identifier: Int) async throws {
       let identifier = identifier.httpFormatted()
-      try await pokemonRepository.getPokemon(identifier: identifier)
+      let pokemon = try await pokemonRepository.getPokemon(identifier: identifier)
+      stateContainer.state.pokemonDetail.selectedPokemon = pokemon
     }
 
     /// Fetches a Pokémon by its identifier string.
     /// - Parameter identifier: The string identifier of the Pokémon.
     /// - Throws: Rethrows errors from the Pokémon repository.
-    /// - Returns: The Pokémon corresponding to the given identifier string.
     func execute(identifier: String) async throws {
-      try await pokemonRepository.getPokemon(identifier: identifier)
+      let identifier = identifier.httpFormatted()
+      let pokemon = try await pokemonRepository.getPokemon(identifier: identifier)
+      stateContainer.state.pokemonDetail.selectedPokemon = pokemon
     }
   }
 
@@ -38,10 +42,32 @@ extension UseCase {
     /// The Pokémon repository dependency.
     @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
 
+    /// The `AppState`.
+    @Injected(\.stateContainer) private var stateContainer: StateContainer
+
     /// Fetches the Pokémon list from the repository.
     /// - Throws: Rethrows errors from the Pokémon repository.
     func execute() async throws {
-      try await pokemonRepository.fetchPokemonList()
+      let pokemonList = try await pokemonRepository.fetchPokemonList(
+        next: stateContainer.state.pokemonList.pokemonList?.next
+      )
+      if let pokemonListState = stateContainer.state.pokemonList.pokemonList,
+        pokemonListState.pokemonItems.allSatisfy({ pokemon in
+          pokemonList.pokemonItems.contains { $0 == pokemon }
+        })
+      {
+        return
+      }
+
+      var pokemonItems = stateContainer.state.pokemonList.pokemonList?.pokemonItems ?? []
+      pokemonItems += pokemonList.pokemonItems
+      let newPokemonList = Model.Entity.PokemonList(
+        count: pokemonList.count,
+        next: pokemonList.next,
+        pokemonItems: pokemonItems
+      )
+
+      stateContainer.state.pokemonList.pokemonList = newPokemonList
     }
   }
 
@@ -49,6 +75,9 @@ extension UseCase {
   struct GetPokedexAssistantInformation {
     /// The Pokémon repository dependency.
     @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
+
+    /// The `AppState`.
+    @Injected(\.stateContainer) private var stateContainer: StateContainer
 
     /// Retrieves additional Pokédex assistant information for a given Pokémon.
     ///
@@ -59,7 +88,8 @@ extension UseCase {
     /// - Throws: Rethrows errors encountered by the repository during retrieval.
     /// - Note: This operation is asynchronous and may involve network or database access.
     func execute(for pokemon: Model.Entity.Pokemon) async throws {
-      try await pokemonRepository.getPokedexInformation(for: pokemon)
+      let pokedexInformation = try await pokemonRepository.getPokedexInformation(for: pokemon)
+      stateContainer.state.pokemonDetail.pokedexInformation = pokedexInformation
     }
   }
 
@@ -67,6 +97,9 @@ extension UseCase {
   struct ClearPokedexAssistantInformationCache {
     /// The Pokémon repository dependency.
     @Injected(\.pokemonRepository) private var pokemonRepository: PokemonRepositoryProtocol
+
+    /// The `AppState`.
+    @Injected(\.stateContainer) private var stateContainer: StateContainer
 
     /// Clears the cached Pokédex assistant information.
     ///
@@ -76,7 +109,7 @@ extension UseCase {
     ///
     /// - Note: This operation is synchronous and does not throw errors.
     func execute() {
-      pokemonRepository.clearPokedexInformation()
+      stateContainer.state.pokemonDetail.pokedexInformation = nil
     }
   }
 

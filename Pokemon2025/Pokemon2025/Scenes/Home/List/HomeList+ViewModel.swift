@@ -5,13 +5,6 @@
 //  Created by Nunzio Giulio Caggegi on 03/07/25.
 //
 
-//
-//  HomeListCell+ViewModel.swift
-//  Pokemon2025
-//
-//  Created by Nunzio Giulio Caggegi on 03/07/25.
-//
-
 import Factory
 import Foundation
 import SwiftUI
