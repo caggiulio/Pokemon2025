@@ -54,15 +54,16 @@ extension UI.Funnel.Home.View.List {
           Image(.pokeball)
             .resizable()
         }
-        .frame(width: .xLarge, height: .xLarge)
-        .clipped()
+        .aspectRatio(contentMode: .fit)
+        .padding(.small)
 
         Text(viewModel.name)
           .fontWeight(.bold)
           .fontDesign(.rounded)
           .foregroundStyle(.white)
+          .padding(.bottom, .medium)
       }
-      .frame(width: .xLarge + .medium, height: .xLarge + .medium)
+      .frame(maxWidth: .xLarge * 5)
       .background {
         Color.white.opacity(0.2)
           .clipShape(RoundedRectangle(cornerRadius: .medium))

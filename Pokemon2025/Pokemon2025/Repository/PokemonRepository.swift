@@ -10,15 +10,15 @@ import Foundation
 
 extension Repository {
   struct Pokemon: PokemonRepositoryProtocol {
-    
+
     // MARK: - Stored Properties
-    
+
     /// This is the implementation of `NetworkDataSourceProtocol`
     @Injected(\.pokemonService) private var pokemonService: PokemonServiceProtocol
 
     /// The AI Assistant servicethat returns the Pokedex information.
     @Injected(\.pokedexAssistantService) private var pokedexAssistanService: PokedexAssistantServiceProtocol
-    
+
     // MARK: - PokemonRepositoryProtocol
 
     func getPokemon(identifier: String) async throws -> Model.Entity.Pokemon {
