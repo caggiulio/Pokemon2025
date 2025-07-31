@@ -22,8 +22,15 @@ extension UI.Funnel.Home.View {
     /// Binding to the external search state, allowing two-way sync with parent.
     @Binding var isSearchingBinding: Bool
 
+    /// The list of Pokémon items to be displayed or managed in the home list view.
+    ///
+    /// This published array holds instances of `PokemonListItem`, representing each Pokémon's
+    /// summary information (name, image, etc.) for presentation in the UI. Changes to this array
+    /// will trigger UI updates in any observing SwiftUI views.
+    private var pokemons: [Model.Entity.PokemonListItem] = []
+
     /// Holds the current list of Pokémon items to be displayed in the UI.
-    @ObservedObject private var viewModel: UI.Funnel.Home.View.List.ViewModel
+    @StateObject private var viewModel = UI.Funnel.Home.View.List.ViewModel(pokemons: [])
 
     /// Indicates whether the search interaction is currently active, from the environment.
     @Environment(\.isSearching) private var isSearching
@@ -52,10 +59,9 @@ extension UI.Funnel.Home.View {
     ///   - bottomIsReached: An optional closure that is triggered when the user scrolls to the bottom
     ///                      of the list. This can be used to perform actions such as loading more items.
     init(pokemons: [Model.Entity.PokemonListItem], isSearchingBinding: Binding<Bool>, bottomIsReached: Interaction?) {
-      let viewModel = UI.Funnel.Home.View.List.ViewModel(pokemons: pokemons)
-      self.viewModel = viewModel
       self._isSearchingBinding = isSearchingBinding
       self.bottomIsReached = bottomIsReached
+      self.pokemons = pokemons
     }
 
     // MARK: - View
@@ -87,6 +93,9 @@ extension UI.Funnel.Home.View {
       .loader(isShowing: viewModel.localState.isLoading)
       .onChange(of: isSearching) { _, newValue in
         isSearchingBinding = newValue
+      }
+      .onChange(of: pokemons) { _, newValue in
+        viewModel.setPokemons(pokemons: newValue)
       }
     }
   }

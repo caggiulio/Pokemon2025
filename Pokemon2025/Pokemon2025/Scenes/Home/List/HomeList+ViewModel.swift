@@ -11,10 +11,24 @@ import SwiftUI
 
 extension UI.Funnel.Home.View.List {
   /// The `ViewModel` class serves as the observable view model for the Pokémon Home List screen.
+  /// The `ViewModel` class serves as the observable view model for the Pokémon Home List screen.
+  ///
+  /// Its main responsibilities include:
+  /// - Managing and exposing the list of Pokémon items, represented by `PokemonListItem` objects, for presentation within the Home List UI.
+  /// - Tracking and publishing the local state for loading, success, or error scenarios, facilitating reactive UI updates based on asynchronous operations.
+  /// - Coordinating navigation and flow control within the Home UI by interacting with an injected `Coordinator`, supporting navigation to details screens and other flows.
+  /// - Providing methods for fetching detailed Pokémon information asynchronously, updating the state accordingly, and handling navigation animations and matched transitions.
+  ///
+  /// The `ViewModel` leverages dependency injection for modular coordination, utilizes `@Published` properties for SwiftUI reactivity, and encapsulates logic for state-driven UI updates and navigation. It is designed to be testable, lightweight, and tightly focused on UI model concerns, delegating domain and navigation behaviors to injected collaborators.
   class ViewModel: ObservableObject {
 
     // MARK: - Stored Properties
 
+    /// The list of Pokémon items to be displayed or managed in the home list view.
+    ///
+    /// This published array holds instances of `PokemonListItem`, representing each Pokémon's
+    /// summary information (name, image, etc.) for presentation in the UI. Changes to this array
+    /// will trigger UI updates in any observing SwiftUI views.
     @Published private(set) var pokemons: [Model.Entity.PokemonListItem] = []
 
     /// Represents the current local state of the ViewModel,
@@ -56,6 +70,18 @@ extension UI.Funnel.Home.View.List {
       } catch {
         localState = .failure(error)
       }
+    }
+
+    /// Replaces the current list of Pokémon items with a new array.
+    ///
+    /// This method updates the `pokemons` property, which holds the list of Pokémon
+    /// items displayed or managed in the home list view. When called, it replaces the
+    /// entire current array with the provided array, triggering UI updates for any
+    /// observing SwiftUI views due to the `@Published` property wrapper.
+    ///
+    /// - Parameter pokemons: An array of `PokemonListItem` objects to set as the new list.
+    func setPokemons(pokemons: [Model.Entity.PokemonListItem]) {
+      self.pokemons = pokemons
     }
 
     /// Returns a unique transition identifier for the given Pokémon item,
