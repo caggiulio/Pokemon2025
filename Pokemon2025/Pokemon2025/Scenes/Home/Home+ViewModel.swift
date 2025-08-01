@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Factory
 import Foundation
 import SwiftUI
 
@@ -42,6 +43,13 @@ extension UI.Funnel.Home {
 
     /// A set used to store Combine's `AnyCancellable` instances.
     private var cancellables: Set<AnyCancellable> = []
+
+    /// The use case for fetching the list of Pokémon, injected for testability and modularity.
+    ///
+    /// Injecting this use case allows the ViewModel to request Pokémon lists from the appropriate source
+    /// without being tightly coupled to a concrete implementation. This enhances testability and enables
+    /// flexible swapping of data providers.
+    @Injected(\.fetchPokemonListUseCase) private var fetchPokemonListUseCase: FetchPokemonListUseCase
 
     // MARK: - Computed Properties
 
@@ -92,14 +100,15 @@ extension UI.Funnel.Home {
     /// Sets the local state to `.loading` during the fetch,
     /// updates to `.success` on completion, or `.failure` if an error occurs.
     /// Errors thrown during the fetch are handled and reflected in the local state.
-    @MainActor
-    func loadOthers() async throws {
+    nonisolated(nonsending)
+      func loadOthers() async throws
+    {
       guard !isSearching else {
         return
       }
       localState = .loading
       do {
-        try await UseCase.FetchPokemonList().execute()
+        try await fetchPokemonListUseCase.execute()
         localState = .success
       } catch {
         localState = .failure(error)

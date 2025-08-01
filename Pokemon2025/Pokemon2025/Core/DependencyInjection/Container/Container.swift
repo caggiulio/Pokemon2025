@@ -65,3 +65,30 @@ extension Container {
       }
   }
 }
+
+extension Container {
+  var getPokemonByIdentifierUseCase: Factory<GetPokemonByIdentifierUseCase> {
+    self { UseCase.GetPokemonByIdentifier() }
+      .scope(.graph)
+  }
+
+  var fetchPokemonListUseCase: Factory<FetchPokemonListUseCase> {
+    self { UseCase.FetchPokemonList() }
+      .scope(.graph)
+  }
+
+  var getPokedexAssistantInformationUseCase: Factory<GetPokedexAssistantInformationUseCase> {
+    self { UseCase.GetPokedexAssistantInformation() }
+      .scope(.graph)
+  }
+
+  var clearPokedexAssistantInformationCacheUseCase: Factory<ClearPokedexAssistantInformationCacheUseCase> {
+    self { UseCase.ClearPokedexAssistantInformationCache() }
+      .scope(.graph)
+  }
+
+  var prewarmPokedexAssistantUseCase: Factory<PrewarmPokedexAssistantUseCase> {
+    self { UseCase.PrewarmPokedexAssistant() }
+      .scope(.graph)
+  }
+}

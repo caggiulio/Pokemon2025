@@ -40,6 +40,12 @@ extension UI.Funnel.Home.View.List {
     /// enabling the ViewModel to trigger navigation actions without tightly coupling to the navigation logic.
     @Injected(\.coordinator) private var coordinator: Coordinator
 
+    /// The use case for retrieving a Pokémon by its identifier, injected for testability and separation of concerns.
+    ///
+    /// This use case enables the ViewModel to fetch Pokémon details without direct knowledge of data retrieval internals,
+    /// supporting dependency injection and easier unit testing.
+    @Injected(\.getPokemonByIdentifierUseCase) private var getPokemonByIdentifierUseCase: GetPokemonByIdentifierUseCase
+
     // MARK: - Init
 
     /// Initializes the `ViewModel` with an initial list of Pokémon items.
@@ -60,11 +66,12 @@ extension UI.Funnel.Home.View.List {
     ///
     /// - Parameter pokemon: The `PokemonListItem` for which to fetch detailed information.
     /// - Throws: Rethrows any error encountered during the data fetch operation.
-    @MainActor
-    func fetchPokemonDetail(for pokemon: Model.Entity.PokemonListItem, animation: Namespace.ID) async throws {
+    nonisolated(nonsending)
+      func fetchPokemonDetail(for pokemon: Model.Entity.PokemonListItem, animation: Namespace.ID) async throws
+    {
       localState = .loading
       do {
-        try await UseCase.GetPokemonByIdentifier().execute(identifier: pokemon.id)
+        try await getPokemonByIdentifierUseCase.execute(identifier: pokemon.id)
         localState = .success
         coordinator.details(transitionIdentifier: matchedTransitionIdentifier(for: pokemon), animation: animation)
       } catch {

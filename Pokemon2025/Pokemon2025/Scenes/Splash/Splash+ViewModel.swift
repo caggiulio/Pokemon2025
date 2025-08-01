@@ -14,6 +14,10 @@ extension UI.Funnel.Splash {
     /// The coordinator of the app.
     @Injected(\.coordinator) var coordinator: Coordinator
 
+    /// The use case for fetching the Pokémon list, injected for separation of concerns and testability.
+    /// This allows the ViewModel to trigger list fetching without direct coupling to implementation details.
+    @Injected(\.fetchPokemonListUseCase) private var fetchPokemonListUseCase: FetchPokemonListUseCase
+
     // MARK: - DidAppear
 
     /// Called when the view appears.
@@ -27,7 +31,7 @@ extension UI.Funnel.Splash {
       )
 
       Task {
-        try await UseCase.FetchPokemonList().execute()
+        try await fetchPokemonListUseCase.execute()
         coordinator.home()
       }
     }

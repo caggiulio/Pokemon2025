@@ -5,6 +5,7 @@
 //  Created by Nunzio Giulio Caggegi on 11/06/23.
 //
 
+import Factory
 import SwiftUI
 
 /// Extension providing the ViewModel for the Details funnel in the UI.
@@ -27,6 +28,16 @@ extension UI.Funnel.Details {
 
     /// Tracks the current loading state for the details view's local operations (such as fetching Pokédex information).
     @Published var localState: LocalState<Empty, Error> = .idle
+
+    /// The use case for fetching additional Pokédex assistant information for a Pokémon, injected for modularity and testability.
+    @Injected(\.getPokedexAssistantInformationUseCase) private var getPokedexAssistantInformationUseCase:
+      GetPokedexAssistantInformationUseCase
+    /// The use case for clearing the Pokédex assistant cache, injected for modularity and testability.
+    @Injected(\.clearPokedexAssistantInformationCacheUseCase) private var clearPokedexAssistantInformationCacheUseCase:
+      ClearPokedexAssistantInformationCacheUseCase
+    /// The use case for prewarming the Pokédex assistant service, injected for modularity and testability.
+    @Injected(\.prewarmPokedexAssistantUseCase) private var prewarmPokedexAssistantUseCase:
+      PrewarmPokedexAssistantUseCase
 
     // MARK: - Computed Properties
 
@@ -131,15 +142,16 @@ extension UI.Funnel.Details {
     /// - Throws: Propagates any error thrown by the underlying use case execution.
     ///
     /// - Note: This method should be called when up-to-date Pokédex information is required for the selected Pokémon.
-    @MainActor
-    func getPokedexInformation() async throws {
+    nonisolated(nonsending)
+      func getPokedexInformation() async throws
+    {
       localState = .loading
       guard let selectedPokemon else {
         localState = .idle
         return
       }
       do {
-        try await UseCase.GetPokedexAssistantInformation().execute(for: selectedPokemon)
+        try await getPokedexAssistantInformationUseCase.execute(for: selectedPokemon)
         localState = .success
       } catch {
         localState = .failure(error)
@@ -159,7 +171,7 @@ extension UI.Funnel.Details {
     ///
     /// - Note: This operation is typically called during deinitialization or when a complete data refresh is required.
     func resetPokedexData() {
-      UseCase.ClearPokedexAssistantInformationCache().execute()
+      clearPokedexAssistantInformationCacheUseCase.execute()
     }
 
     /// Prewarms the Pokedex Assistant to optimize performance for future requests.
@@ -170,7 +182,7 @@ extension UI.Funnel.Details {
     ///
     /// - Note: This method is typically called proactively, before Pokédex details are needed, to ensure a smoother user experience.
     private func prewarmPokedexAssistant() {
-      UseCase.PrewarmPokedexAssistant().execute()
+      prewarmPokedexAssistantUseCase.execute()
     }
   }
 }

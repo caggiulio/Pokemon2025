@@ -23,7 +23,7 @@ extension UI.Funnel.Home {
     var body: some SwiftUI.View {
       ZStack {
         UI.Funnel.Home.View.List(pokemons: viewModel.pokemons, isSearchingBinding: $viewModel.isSearching) {
-          Task {
+          mainActorTask {
             try await viewModel.loadOthers()
           }
         }

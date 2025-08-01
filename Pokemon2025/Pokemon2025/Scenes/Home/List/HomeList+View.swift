@@ -77,7 +77,7 @@ extension UI.Funnel.Home.View {
         ) {
           ForEach(viewModel.pokemons) { pokemon in
             UI.Funnel.Home.View.List.Cell(pokemon: pokemon, animation: animation) { pokemon in
-              Task {
+              mainActorTask {
                 try await viewModel.fetchPokemonDetail(for: pokemon, animation: animation)
               }
             }

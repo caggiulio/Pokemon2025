@@ -246,10 +246,8 @@ extension UI.Funnel.Details {
     @ToolbarContentBuilder
     var toolbar: some ToolbarContent {
       ToolbarItem {
-        Button {
-          Task {
-            try await viewModel.getPokedexInformation()
-          }
+        MainActorButton {
+          try await viewModel.getPokedexInformation()
         } label: {
           Image(systemName: !viewModel.localState.isLoading.wrappedValue ? "waveform.circle" : "ellipsis")
         }
