@@ -7,7 +7,7 @@
 
 import Factory
 import Foundation
-import RealHTTP
+@preconcurrency import RealHTTP
 
 // MARK: - NetworkWorker
 

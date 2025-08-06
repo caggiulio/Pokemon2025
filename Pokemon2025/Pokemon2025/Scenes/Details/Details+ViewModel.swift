@@ -32,11 +32,11 @@ extension UI.Funnel.Details {
     /// The use case for fetching additional Pokédex assistant information for a Pokémon, injected for modularity and testability.
     @Injected(\.getPokedexAssistantInformationUseCase) private var getPokedexAssistantInformationUseCase:
       GetPokedexAssistantInformationUseCase
-    
+
     /// The use case for clearing the Pokédex assistant cache, injected for modularity and testability.
     @Injected(\.clearPokedexAssistantInformationCacheUseCase) private var clearPokedexAssistantInformationCacheUseCase:
       ClearPokedexAssistantInformationCacheUseCase
-    
+
     /// The use case for prewarming the Pokédex assistant service, injected for modularity and testability.
     @Injected(\.prewarmPokedexAssistantUseCase) private var prewarmPokedexAssistantUseCase:
       PrewarmPokedexAssistantUseCase
@@ -144,9 +144,7 @@ extension UI.Funnel.Details {
     /// - Throws: Propagates any error thrown by the underlying use case execution.
     ///
     /// - Note: This method should be called when up-to-date Pokédex information is required for the selected Pokémon.
-    nonisolated(nonsending)
-      func getPokedexInformation() async throws
-    {
+    func getPokedexInformation() async throws {
       localState = .loading
       guard let selectedPokemon else {
         localState = .idle

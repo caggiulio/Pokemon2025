@@ -28,11 +28,11 @@ struct SwiftUIArchitectureApp: App {
         .fullScreenCover(isPresented: $coordinator.isHomePresented) {
           NavigationStack(path: $coordinator.homePath) {
             mainAssembler.view(for: .home)
+              .animatedBackground()
               .navigationDestination(for: HomeDestinationLink.self) { destination in
                 homeAssembler.view(for: destination)
               }
           }
-          .animatedBackground()
         }
     }
   }

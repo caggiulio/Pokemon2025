@@ -66,9 +66,7 @@ extension UI.Funnel.Home.View.List {
     ///
     /// - Parameter pokemon: The `PokemonListItem` for which to fetch detailed information.
     /// - Throws: Rethrows any error encountered during the data fetch operation.
-    nonisolated(nonsending)
-      func fetchPokemonDetail(for pokemon: Model.Entity.PokemonListItem, animation: Namespace.ID) async throws
-    {
+    func fetchPokemonDetail(for pokemon: Model.Entity.PokemonListItem, animation: Namespace.ID) async throws {
       localState = .loading
       do {
         try await getPokemonByIdentifierUseCase.execute(identifier: pokemon.id)

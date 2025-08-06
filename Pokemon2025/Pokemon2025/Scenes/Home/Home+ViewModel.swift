@@ -100,9 +100,7 @@ extension UI.Funnel.Home {
     /// Sets the local state to `.loading` during the fetch,
     /// updates to `.success` on completion, or `.failure` if an error occurs.
     /// Errors thrown during the fetch are handled and reflected in the local state.
-    nonisolated(nonsending)
-      func loadOthers() async throws
-    {
+    func loadOthers() async throws {
       guard !isSearching else {
         return
       }
