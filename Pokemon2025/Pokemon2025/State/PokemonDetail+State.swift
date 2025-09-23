@@ -7,14 +7,17 @@
 
 import Foundation
 
-/// The state in which the Pokemon detail information will stored.
-public struct PokemonDetail {
+extension Model.State {
+  /// The state in which the Pokemon detail information will stored.
+  public struct PokemonDetail {
 
-  // MARK: - Stored Properties
+    // MARK: - Stored Properties
 
-  /// The selected Pokemon.
-  var selectedPokemon: Model.Entity.Pokemon?
+    /// The selected Pokemon.
+    var selectedPokemon: Model.Entity.Pokemon?
 
-  /// The pokedex information provided by assistant.
-  var pokedexInformation: Model.Foundation.PokemonInformation?
+    /// The pokedex information provided by assistant.
+    var pokedexInformation: Model.Foundation.PokemonInformation?
+  }
+
 }

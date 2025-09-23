@@ -4,8 +4,8 @@
 
 import Foundation
 
-public struct AppStateMock: AppStateable {
-  public var pokemonDetail = PokemonDetail(
+struct AppStateMock: AppStateable {
+  var pokemonDetail = Model.State.PokemonDetail(
     selectedPokemon: Model.Entity.Pokemon(
       abilities: [.init(name: "Ability")],
       baseExperience: 70,
@@ -30,10 +30,10 @@ public struct AppStateMock: AppStateable {
     )
   )
 
-  public var pokemonList = PokemonListState()
+  var pokemonList = Model.State.PokemonList()
 
-  public mutating func reset() {
-    pokemonDetail = PokemonDetail()
-    pokemonList = PokemonListState()
+  mutating func reset() {
+    pokemonDetail = Model.State.PokemonDetail()
+    pokemonList = Model.State.PokemonList()
   }
 }

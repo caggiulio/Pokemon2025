@@ -10,16 +10,16 @@ public struct AppState: AppStateable {
   // MARK: - Stored Properties
 
   /// The state associated with the currently selected Pokémon's detail view.
-  public var pokemonDetail = PokemonDetail()
+  public var pokemonDetail = Model.State.PokemonDetail()
 
   /// The state for the Pokémon list view, containing all loaded Pokémon.
-  public var pokemonList = PokemonListState()
+  public var pokemonList = Model.State.PokemonList()
 
   // MARK: - Methods
 
   /// Resets all state to their initial values.
   public mutating func reset() {
-    pokemonDetail = PokemonDetail()
-    pokemonList = PokemonListState()
+    pokemonDetail = Model.State.PokemonDetail()
+    pokemonList = Model.State.PokemonList()
   }
 }

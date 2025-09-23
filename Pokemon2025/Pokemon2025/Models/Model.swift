@@ -7,12 +7,14 @@
 
 import Foundation
 
-enum Model {}
+public enum Model {}
 
 extension Model {
-  enum Entity {}
+  public enum Entity {}
 
-  enum Data {}
+  public enum Data {}
 
-  enum Foundation {}
+  public enum Foundation {}
+  
+  public enum State {}
 }
